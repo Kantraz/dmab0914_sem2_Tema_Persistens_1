@@ -5,12 +5,18 @@ public abstract class Person {
 	private String address;
 	private int phoneNo;
 	private String email;
+	private String city;
+	private int zipCode;
+	private String country;
 	
-	public Person(String name, String address, int phoneNo, String email){
+	public Person(String name, String address, int phoneNo, String email, String city, int zipCode, String country){
 		this.name = name;
 		this.address = address;
 		this.phoneNo = phoneNo;
 		this.email = email;
+		this.city = city;
+		this.zipCode = zipCode;
+		this.country = country;
 	}
 	
 	public String getName() {
