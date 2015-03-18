@@ -14,9 +14,9 @@ public abstract class Person {
 		this.address = address;
 		this.phoneNo = phoneNo;
 		this.email = email;
-		this.city = city;
-		this.zipCode = zipCode;
-		this.country = country;
+		this.setCity(city);
+		this.setZipCode(zipCode);
+		this.setCountry(country);
 	}
 	
 	public String getName() {
@@ -42,6 +42,48 @@ public abstract class Person {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	/**
+	 * @return the country
+	 */
+	public String getCountry() {
+		return country;
+	}
+
+	/**
+	 * @param country the country to set
+	 */
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	/**
+	 * @return the zipCode
+	 */
+	public int getZipCode() {
+		return zipCode;
+	}
+
+	/**
+	 * @param zipCode the zipCode to set
+	 */
+	public void setZipCode(int zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	/**
+	 * @return the city
+	 */
+	public String getCity() {
+		return city;
+	}
+
+	/**
+	 * @param city the city to set
+	 */
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 }
