@@ -1,19 +1,20 @@
 package ModelLayer;
 
-public abstract class Person {
+public class Person {
 	private String name;
 	private String address;
 	private int phoneNo;
 	private String email;
 	private String city;
-	private int zipCode;
+	private String zipCode;
 	private String country;
+	private int isActive;
 	
 	public Person(){
 		
 	}
 	
-	public Person(String name, String address, int phoneNo, String email, String city, int zipCode, String country){
+	public Person(String name, String address, int phoneNo, String email, String city, String zipCode, String country, int isActive){
 		this.name = name;
 		this.address = address;
 		this.phoneNo = phoneNo;
@@ -21,6 +22,7 @@ public abstract class Person {
 		this.setCity(city);
 		this.setZipCode(zipCode);
 		this.setCountry(country);
+		this.setIsActive(isActive);
 	}
 	
 	public String getName() {
@@ -65,15 +67,15 @@ public abstract class Person {
 	/**
 	 * @return the zipCode
 	 */
-	public int getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
 
 	/**
-	 * @param zipCode the zipCode to set
+	 * @param zipCode2 the zipCode to set
 	 */
-	public void setZipCode(int zipCode) {
-		this.zipCode = zipCode;
+	public void setZipCode(String zipCode2) {
+		this.zipCode = zipCode2;
 	}
 
 	/**
@@ -88,6 +90,20 @@ public abstract class Person {
 	 */
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	/**
+	 * @return the isActive
+	 */
+	public int getIsActive() {
+		return isActive;
+	}
+
+	/**
+	 * @param isActive the isActive to set
+	 */
+	public void setIsActive(int isActive) {
+		this.isActive = isActive;
 	}
 
 }
