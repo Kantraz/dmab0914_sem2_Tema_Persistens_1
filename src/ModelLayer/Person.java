@@ -9,6 +9,10 @@ public abstract class Person {
 	private int zipCode;
 	private String country;
 	
+	public Person(){
+		
+	}
+	
 	public Person(String name, String address, int phoneNo, String email, String city, int zipCode, String country){
 		this.name = name;
 		this.address = address;
