@@ -4,6 +4,7 @@
 package ControlLayer;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import DBLayer.DbConnection;
 import DBLayer.GetMax;
@@ -63,8 +64,20 @@ public class OrderController {
 	}
 	public void endOrder(String phone){
 		tempOrder.setActive(true);
-		Person tempP = perCon.findCustomer(phone);
+		Person tempP = perCon.findPerson(phone);
 		tempOrder.setCustomer(tempP);
+		tempOrder.setDate(new Date());
+		try{
+		oDB.addOrder();
+		createNewOrder();
+		}
+		catch(Exception e){
+			
+		}
+		
+	}
+	public void removeOrder(int orderID){
+		oDB.removeOrder(orderID);
 	}
 
 }
