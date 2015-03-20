@@ -12,6 +12,7 @@ import DBLayer.*;
 public class PersonController {
 	private Person p;
 	private PersonDB pDB;
+	private PersonIFDB pIFDB;
 	/**
 	 * 
 	 */
@@ -30,16 +31,24 @@ public class PersonController {
 	
 	public ArrayList<Customer> findAllCustomers()
     {
-      PIFDB pDB = new PersonDB();
+      pIFDB pDB = new PersonDB();
       ArrayList<Customer> allCust = new ArrayList<Customer>();
       allCust = pDB.getAllEmployees(false);
       return allEmp;
     }
+	 public int updateCustomer(String name, String address, int phoneNo, String email, String city, int zipCode, String country)
+     {
+         pIFDB pDB = new DBEmployee();
+         Employee emp = new Employee();
+         emp.setSsn(ssn);
+         emp.setFname(fname);
+         emp.setLname(lname);
+         emp.setSupervisor(new Employee(superssn));
+         emp.setSalary(salary);
+         return  dbEmp.updateEmployee(emp);
+         
+         
+     }
 	
-	public Employee findByFname(String fname)
-    {
-        IFDBEmp dbEmp = new DBEmployee();
-        return dbEmp.searchEmployeeFname(fname, true);
-    }
 	
 }
