@@ -8,6 +8,12 @@ package ControlLayer;
  *
  */
 public class OrderController {
+	
+	private PersonController perCon;
+	private ProductController proCon;
+	private Order o;
+	private oDB OrderDB;
+	private PartOrder pO;
 
 	/**
 	 * 
