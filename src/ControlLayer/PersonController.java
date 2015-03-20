@@ -20,27 +20,23 @@ public class PersonController {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer findCustomer(String phoneNo){
+	public Person findPerson(String phoneNo){
 		PersonDB pDB = new PersonDB();
-		return pDB.findCustomer(phoneNo);
+		return pDB.findPerson(phoneNo);
 	}
 
-	public Supplier findSupplier(String supNumber){
-		return pDB.findSupplier(supNumber);
-	}
-
-	public ArrayList<Customer> findAllCustomers()
+	public ArrayList<Person> findAllPersons()
 	{
 		PersonDB pDB = new PersonDB();
-		ArrayList<Customer> allCust = new ArrayList<Customer>();
-		allCust = pDB.getAllEmployees(false);
-		return allCust;
+		ArrayList<Person> allPers = new ArrayList<Person>();
+		allPers = pDB.getAllPersons(false);
+		return allPers;
 	}
-	public int updateCustomer(String name, String address, int phoneNo, String email, String city, int zipCode, String country, int oldPhone)
+	public int updatePerson(String name, String address, int phoneNo, String email, String city, String zipCode, String country, int isActive, int oldPhone)
 	{
 		PersonDB pDB = new PersonDB();
-		Customer cust = new Customer(name, address, phoneNo, email, city, zipCode, country);
-		return  pDB.updateCustomer(cust, oldPhone);         
+		Person pers = new Person(name, address, phoneNo, email, city, zipCode, country, isActive);
+		return  pDB.updatePerson(pers, oldPhone);         
 	}
 	public void insertNew(String name, String address, int phoneNo, String email, String city, int zipCode, String country) throws Exception
 	{    
