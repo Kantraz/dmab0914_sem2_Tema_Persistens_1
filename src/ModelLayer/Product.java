@@ -15,17 +15,19 @@ public class Product {
 	private float rentPrice;
 	private String countryOfOrigin;
 	private int minStock;
+	private int id;
 
 	/**
 	 * 
 	 */
-	public Product(String name, float purchasePrice, float salesPrice, float rentPrice, String countryOfOrigin, int minStock) {
+	public Product() {
 		this.name = name;
 		this.purchasePrice = purchasePrice;
 		this.salesPrice = salesPrice;
 		this.rentPrice = rentPrice;
 		this.countryOfOrigin = countryOfOrigin;
 		this.minStock = minStock;
+		this.id = id;
 	}
 
 	/**
@@ -110,6 +112,14 @@ public class Product {
 	 */
 	public void setMinStock(int minStock) {
 		this.minStock = minStock;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	
