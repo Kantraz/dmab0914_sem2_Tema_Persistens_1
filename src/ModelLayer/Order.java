@@ -5,6 +5,7 @@ package ModelLayer;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -12,25 +13,13 @@ import java.util.Date;
  *
  */
 public class Order {
-	private Product product;
+	private ArrayList<PartOrder> partOrders = new ArrayList<PartOrder>();
 	private Customer customer;
 	private Date date;
 	private int orderID;
 public Order(){
 	date = new Date();
 
-}
-/**
- * @return the product
- */
-public Product getProduct() {
-	return product;
-}
-/**
- * @param product the product to set
- */
-public void setProduct(Product product) {
-	this.product = product;
 }
 /**
  * @return the customer
@@ -67,5 +56,17 @@ public int getOrderID() {
  */
 public void setOrderID(int orderID) {
 	this.orderID = orderID;
+}
+/**
+ * @return the partOrders
+ */
+public ArrayList<PartOrder> getPartOrders() {
+	return partOrders;
+}
+public void addPartorder(PartOrder po){
+	partOrders.add(po);
+}
+public void removePartorder(int i){
+	partOrders.remove(i);
 }
 }
