@@ -55,7 +55,7 @@ public class PersonDB {
 	private Person singleWhereCust(String wClause, int phoneNo)
 	{
 		ResultSet results;
-		Customer cust = new Customer();
+		DbPersonHelper cust = new DbPersonHelper();
 
 		String query =  buildQueryCust(wClause);
 		System.out.println(query);
@@ -65,7 +65,7 @@ public class PersonDB {
 			pstmt.setQueryTimeout(5);
 			results = pstmt.executeQuery(query);
 			if( results.next() ){
-				cust = buildCust(results);
+				cust = build(results);
 				//assocaition is to be build
 				pstmt.close();     
 			}
@@ -81,7 +81,7 @@ public class PersonDB {
 	//method to build the query
 	private String buildQueryCust(String wClause)
 	{
-		String query="SELECT ID, Name, Adress, PhoneNo, Email, ZipCode, Country, FROM Person";
+		String query="SELECT ID, Name, Adress, PhoneNo, Email, ZipCode, Country, null FROM Person";
 
 		if (wClause.length()>0)
 			query=query+" WHERE "+ wClause;
@@ -99,8 +99,8 @@ public class PersonDB {
 		return query;
 	}
 	
-	private Customer buildCust(ResultSet results)
-	{   Customer pers = new Customer();
+	private DbPersonHelper build(ResultSet results)
+	{   DbPersonHelper pers = new DbPersonHelper();
 	try{ // the columns from the table product  are used
 		pers.setName(results.getString("Name"));
 		pers.setAddress(results.getString("Adress"));
@@ -108,10 +108,11 @@ public class PersonDB {
 		pers.setEmail(results.getString("Email"));
 		pers.setZipCode(results.getInt("ZipCode"));
 		pers.setCountry(results.getString("Country"));
+		//pers.setSupNumber(results.getInt(null));
 	}
 	catch(Exception e)
 	{
-		System.out.println("error in building the employee object");
+		System.out.println("error in building the person object");
 	}
 	return pers;
 	}
@@ -120,17 +121,12 @@ public class PersonDB {
 	{ // the columns from the table product  are used
 		Supplier pers = new Supplier();
 		try{ // the columns from the table product  are used
-			pers.setName(results.getString("Name"));
-			pers.setAddress(results.getString("Adress"));
-			pers.setPhoneNo(results.getInt("PhoneNo"));
-			pers.setEmail(results.getString("Email"));
-			pers.setZipCode(results.getInt("ZipCode"));
-			pers.setCountry(results.getString("Country"));
+			build(results);
 			pers.setSupNumber(results.getInt("Supplier_ID"));
 	}
 	catch(Exception e)
 	{
-		System.out.println("error in building the employee object");
+		System.out.println("error in building the supplier object");
 	}
 	return pers;
 	}
