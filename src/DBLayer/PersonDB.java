@@ -3,12 +3,13 @@ package DBLayer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import ModelLayer.*;
 
 public class PersonDB {
-	
+
 	private  Connection con;
 
 	public PersonDB() {
@@ -24,7 +25,7 @@ public class PersonDB {
 		String wClause = "  supNumber = '" +  "?'";
 		return (Supplier) singleWhereSupp(wClause,supNumber);
 	}
-	
+
 	private Person singleWhereSupp(String wClause, String supNumber)
 	{
 		ResultSet results;
@@ -88,7 +89,7 @@ public class PersonDB {
 
 		return query;
 	}
-	
+
 	private String buildQuerySupp(String wClause)
 	{
 		String query="ID, Name, Adress, PhoneNo, Email, ZipCode, Country, Supplier_ID FROM Person";
@@ -98,7 +99,7 @@ public class PersonDB {
 
 		return query;
 	}
-	
+
 	private DbPersonHelper build(ResultSet results)
 	{   DbPersonHelper pers = new DbPersonHelper();
 	try{ // the columns from the table product  are used
@@ -116,19 +117,19 @@ public class PersonDB {
 	}
 	return pers;
 	}
-	
+
 	private Supplier buildSupp(ResultSet results)
 	{ // the columns from the table product  are used
 		Supplier pers = new Supplier();
 		try{ // the columns from the table product  are used
 			build(results);
 			pers.setSupNumber(results.getInt("Supplier_ID"));
-	}
-	catch(Exception e)
-	{
-		System.out.println("error in building the supplier object");
-	}
-	return pers;
+		}
+		catch(Exception e)
+		{
+			System.out.println("error in building the supplier object");
+		}
+		return pers;
 	}
 
 	public ArrayList<Customer> getAllEmployees(boolean b) {
@@ -141,9 +142,17 @@ public class PersonDB {
 		return 0;
 	}
 
-	public void deleteCustomer(int phoneNo) {
-		// TODO Auto-generated method stub
-		
+	public void deleteCustomer(String wClause, int phoneNo) {
+		String query= buildQuery();
+		System.out.println(query);
+		try{ 
+			Statement stmt = con.createStatement();
+			stmt.setQueryTimeout(5);
+			rc = stmt.executeUpdate(query);
+			stmt.close();
+		}//slut try	
+		catch(Exception ex){
+			System.out.println("Delete exception in employee db: "+ex);
+		}
 	}
-
-}
+	}
