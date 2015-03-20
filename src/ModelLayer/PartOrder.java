@@ -11,8 +11,12 @@ public class PartOrder {
 	private String name;
 	private float price;
 	private int amount;
-	public PartOrder(){
-		
+	private int orderID;
+	public PartOrder(int amount2, String name2, float price2, int orderID2){
+		name = name2;
+		amount = amount2;
+		price = price2;
+		orderID = orderID2;
 	}
 	/**
 	 * @return the name
@@ -49,5 +53,17 @@ public class PartOrder {
 	 */
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+	/**
+	 * @return the orderID
+	 */
+	public int getOrderID() {
+		return orderID;
+	}
+	/**
+	 * @param orderID the orderID to set
+	 */
+	public void setOrderID(int orderID) {
+		this.orderID = orderID;
 	}
 }

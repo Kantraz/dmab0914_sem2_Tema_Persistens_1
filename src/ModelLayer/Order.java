@@ -14,9 +14,10 @@ import java.util.Date;
  */
 public class Order {
 	private ArrayList<PartOrder> partOrders = new ArrayList<PartOrder>();
-	private Customer customer;
+	private Person customer;
 	private Date date;
 	private int orderID;
+	private boolean isActive;
 public Order(){
 	date = new Date();
 
@@ -24,13 +25,13 @@ public Order(){
 /**
  * @return the customer
  */
-public Customer getCustomer() {
+public Person getCustomer() {
 	return customer;
 }
 /**
  * @param customer the customer to set
  */
-public void setCustomer(Customer customer) {
+public void setCustomer(Person customer) {
 	this.customer = customer;
 }
 /**
@@ -63,10 +64,22 @@ public void setOrderID(int orderID) {
 public ArrayList<PartOrder> getPartOrders() {
 	return partOrders;
 }
-public void addPartorder(PartOrder po){
-	partOrders.add(po);
+public void addPartorder(int amount, String name, float price, int orderID){
+	partOrders.add(new PartOrder(amount,name,price,orderID));
 }
 public void removePartorder(int i){
 	partOrders.remove(i);
+}
+/**
+ * @return the isActive
+ */
+public boolean isActive() {
+	return isActive;
+}
+/**
+ * @param isActive the isActive to set
+ */
+public void setActive(boolean isActive) {
+	this.isActive = isActive;
 }
 }
