@@ -3,6 +3,8 @@
  */
 package ControlLayer;
 
+import ModelLayer.Order;
+
 /**
  * @author Søren
  *
