@@ -16,11 +16,11 @@ public class PersonDB {
 	public PersonDB() {
 		con = DbConnection.getInstance().getDBcon();
 	}
-	
+
 	public int insertPerson(Person newPers) throws Exception
 	{  	  
 		int nextID = GetMax.getMaxId("Select max(ID) from Person");
-		
+
 		int rc = -1;
 		String query="INSERT INTO Person(ID, Name, Address, PhoneNo, Email, ZipCode, Country, IsActive)  "
 				+ "VALUES(?,?,?,?,?,?,?,?,?)";
@@ -116,9 +116,9 @@ public class PersonDB {
 		int rc=-1;
 		String query = "UPDATE Person SET Name = ?,Adress = ?, PhoneNo = ?, Email = ?,ZipCode = ?, Country = ?, IsActive = ?"
 				+ " WHERE PhoneNo = ?'";
-                System.out.println("Update query:" + query);
-  		try{ // update product
-  			PreparedStatement pstmt = con.prepareStatement(query);
+		System.out.println("Update query:" + query);
+		try{ // update product
+			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setString(1, newPers.getName());
 			pstmt.setString(2, newPers.getAddress());
 			pstmt.setInt(3, newPers.getPhoneNo());
@@ -133,23 +133,15 @@ public class PersonDB {
 
 			pstmt.close();
 		}
-	 	catch(Exception ex){
-	 	 	System.out.println("Update exception in product db: "+ex);
-	  	}
+		catch(Exception ex){
+			System.out.println("Update exception in product db: "+ex);
+		}
 		return(rc);
 	}
 
-	public void deletePerson(String wClause, int phoneNo) {
-		String query= buildQuery(wClause);
-		System.out.println(query);
-		try{ 
-			Statement stmt = con.createStatement();
-			stmt.setQueryTimeout(5);
-			rc = stmt.executeUpdate(query);
-			stmt.close();
-		}//slut try	
-		catch(Exception ex){
-			System.out.println("Delete exception in employee db: "+ex);
-		}
+	public void deletePerson(int phoneNo) {
+		Person tempP = findPerson(phoneNo);
+		tempP.setIsActive(0);
+		updatePerson(tempP, phoneNo);
 	}
 }
