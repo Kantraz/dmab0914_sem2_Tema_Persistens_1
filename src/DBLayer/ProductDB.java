@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import ModelLayer.Employee;
 import ModelLayer.Product;
 
 /**
@@ -28,31 +27,35 @@ public class ProductDB {
 		con = DbConnection.getInstance().getDBcon();
 	}
 	
-	 @Override
-	    public int insertProduct(Product prod) throws Exception
+	 public int insertProduct(Product newProd) throws Exception
 	    {  	  
 	       int rc = -1;
 		   String query="INSERT INTO product(ID, Name,PurchasePrice, SalesPrice, RentPrice,CountryOfOrigin, MinStock, Type, Supplier_ID, IsActive)  "
 		   		+ "VALUES(?,?,?,?,?,?,?,?,?,?)";
 	                     
-	      try{ // insert new employee +  dependent
-	          PreparedStatement pstmt = con.createStatement();
-	          stmt.setQueryTimeout(5);
-	     	  rc = stmt.executeUpdate(query);
-	          stmt.close();
+	      try{ // insert new product
+	          PreparedStatement pstmt = con.prepareStatement(query);
+	          pstmt.setInt(1, newProd.getId());
+				pstmt.setString(2, newProd.getName());
+				pstmt.setFloat(3, newProd.getPurchasePrice());
+				pstmt.setFloat(4, newProd.getSalesPrice());
+				pstmt.setFloat(5, newProd.getRentPrice());
+				pstmt.setString(6, newProd.getCountryOfOrigin());
+				pstmt.setInt(7, newProd.getMinStock());
+				pstmt.setInt(8, newProd.getType());
+				pstmt.setInt(9, newProd.getSupplierID());
+				pstmt.setBoolean(10, newProd.isActive());
+	          pstmt.setQueryTimeout(5);
+	     	  rc = pstmt.executeUpdate(query);
+	     	 pstmt.close();
 	      }//end try
 	       catch(SQLException ex){
-	          System.out.println("Employee ikke oprettet");
-	          throw new Exception ("Employee is not inserted correct");
+	          System.out.println("Produkt ikke oprettet");
+	          throw new Exception ("Product is not inserted correct");
 	       }
 	       return(rc);
 	    }
 	
-	
-	
-	
-	
-
 	public Product findProduct(int productID) {
 		String wClause = "  ID = '" +  "?'";
 		return singleWhere(wClause,productID);
