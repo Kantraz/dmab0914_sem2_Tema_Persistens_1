@@ -6,10 +6,10 @@ package DBLayer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import ModelLayer.Department;
 import ModelLayer.Employee;
 import ModelLayer.Product;
 
@@ -27,30 +27,66 @@ public class ProductDB {
 	public ProductDB() {
 		con = DbConnection.getInstance().getDBcon();
 	}
+	
+	 @Override
+	    public int insertProduct(Product prod) throws Exception
+	    {  	  
+	       int rc = -1;
+		   String query="INSERT INTO product(ID, Name,PurchasePrice, SalesPrice, RentPrice,CountryOfOrigin, MinStock, Type, Supplier_ID, IsActive)  "
+		   		+ "VALUES(?,?,?,?,?,?,?,?,?,?)";
+	                     
+	      try{ // insert new employee +  dependent
+	          PreparedStatement pstmt = con.createStatement();
+	          stmt.setQueryTimeout(5);
+	     	  rc = stmt.executeUpdate(query);
+	          stmt.close();
+	      }//end try
+	       catch(SQLException ex){
+	          System.out.println("Employee ikke oprettet");
+	          throw new Exception ("Employee is not inserted correct");
+	       }
+	       return(rc);
+	    }
+	
+	
+	
+	
+	
 
 	public Product findProduct(int productID) {
 		String wClause = "  ID = '" +  "?'";
 		return singleWhere(wClause,productID);
 	}
 
-	public ArrayList<Product> getAllProducts(boolean b) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public int updateProduct(Product prod, int oldID) {
+		Product newProd  = prod;
+		int rc=-1;
+		String query = "UPDATE Product SET ID = ?, Name = ?,PurchasePrice = ?, SalesPrice = ?, RentPrice = ?,CountryOfOrigin = ?, MinStock = ?, Type = ?, Supplier_ID = ?, IsActive = ?"
+				+ " WHERE ID = ?'";
+                System.out.println("Update query:" + query);
+  		try{ // update product
+  			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, newProd.getId());
+			pstmt.setString(2, newProd.getName());
+			pstmt.setFloat(3, newProd.getPurchasePrice());
+			pstmt.setFloat(4, newProd.getSalesPrice());
+			pstmt.setFloat(5, newProd.getRentPrice());
+			pstmt.setString(6, newProd.getCountryOfOrigin());
+			pstmt.setInt(7, newProd.getMinStock());
+			pstmt.setInt(8, newProd.getType());
+			pstmt.setInt(9, newProd.getSupplierID());
+			pstmt.setBoolean(10, newProd.isActive());
+			pstmt.setInt(11, oldID);
 
-	public int updateProduct(Product prod) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+			pstmt.setQueryTimeout(5);
+			rc = pstmt.executeUpdate(query);
 
-	public void insertProduct(Product prod) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void deleteProduct(Product prod) {
-		// TODO Auto-generated method stub
-
+			pstmt.close();
+		}
+	 	catch(Exception ex){
+	 	 	System.out.println("Update exception in product db: "+ex);
+	  	}
+		return(rc);
 	}
 
 	//Singelwhere is used when we only select one product 	
@@ -68,10 +104,10 @@ public class ProductDB {
 			results = pstmt.executeQuery(query);
 			if( results.next() ){
 				prod = buildProduct(results);
-				//assocaition is to be build
+				//association is to be build
 				pstmt.close();     
 			}
-			else{ //no employee was found
+			else{ //no product was found
 				prod = null;
 			}
 		}//end try	
@@ -80,36 +116,61 @@ public class ProductDB {
 		}
 		return prod;
 	}
+	public ArrayList<Product> getAllProducts(){
+		ResultSet results;
+		String query="SELECT * FROM Product";
+		ArrayList<Product> allProducts = new ArrayList<Product>();
+		Product prod = new Product();
+		try{ // read the product from the database
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setQueryTimeout(5);
+			results = pstmt.executeQuery(query);
+			while( results.next() ){
+				prod = buildProduct(results);
+				allProducts.add(prod);
+				//association is to be build	   
+			}
+			pstmt.close();
+		}
+			catch(Exception e){
+				System.out.println("Query exception: "+e);
+			}
+			
+			return allProducts;
+		}
+	
+		//method to build the query
+		private String buildQuery(String wClause)
+		{
+			String query="SELECT ID, Name,PurchasePrice, SalesPrice, RentPrice,CountryOfOrigin, MinStock, Type, Supplier_ID, IsActive FROM Product";
 
-	//method to build the query
-	private String buildQuery(String wClause)
-	{
-		String query="SELECT ID, Name,PurchasePrice, SalesPrice, RentPrice,CountryOfOrigin, MinStock, Type,Supplier_ID, IsActive  FROM Product";
+			if (wClause.length()>0)
+				query=query+" WHERE "+ wClause;
 
-		if (wClause.length()>0)
-			query=query+" WHERE "+ wClause;
+			return query;
+		}
 
-		return query;
+		//method to build an employee object
+		private Product buildProduct(ResultSet results)
+		{   Product prod = new Product();
+		try{ // the columns from the table product  are used
+			prod.setId(results.getInt("ID"));
+			prod.setName(results.getString("Name"));
+			prod.setPurchasePrice(results.getFloat("PurchasePrice"));
+			prod.setSalesPrice(results.getFloat("SalesPrice"));
+			prod.setRentPrice(results.getFloat("RentPrice"));
+			prod.setCountryOfOrigin(results.getString("CountryOfOrigin"));
+			prod.setMinStock(results.getInt("MinStock"));
+			prod.setType(results.getInt("Type"));
+			prod.setSupplierID(results.getInt("Supplier_ID"));
+			prod.setActive(results.getBoolean("IsActive"));
+		}
+		catch(Exception e)
+		{
+			System.out.println("error in building the product object");
+		}
+		return prod;
+		}
+
+
 	}
-
-	//method to build an employee object
-	private Product buildProduct(ResultSet results)
-	{   Product prod = new Product();
-	try{ // the columns from the table product  are used
-		prod.setId(results.getInt("ID"));
-		prod.setName(results.getString("Name"));
-		prod.setPurchasePrice(results.getFloat("PurchasePrice"));
-		prod.setSalesPrice(results.getFloat("SalesPrice"));
-		prod.setRentPrice(results.getFloat("RentPrice"));
-		prod.setCountryOfOrigin(results.getString("CountryOfOrigin"));
-		prod.set
-	}
-	catch(Exception e)
-	{
-		System.out.println("error in building the employee object");
-	}
-	return empObj;
-	}
-
-
-}

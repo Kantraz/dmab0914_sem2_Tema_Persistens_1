@@ -33,23 +33,28 @@ public class ProductController {
 	{
 		pDB = new ProductDB();
 		ArrayList<Product> allProd = new ArrayList<Product>();
-		allProd = pDB.getAllProducts(false);
+		allProd = pDB.getAllProducts();
 		return allProd;
 	}
 
-	public int updateProduct(int productID, String name, int minStock, int purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin)
+	public int updateProduct(int oldProductID, int newProductID, String name, int minStock, int purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin, int type, int supplierID, boolean isActive)
 	{
 		pDB = new ProductDB();
 		Product prod = new Product();
+		prod.setId(newProductID);
 		prod.setName(name);
 		prod.setMinStock(minStock);
 		prod.setPurchasePrice(purchasePrice);
 		prod.setRentPrice(rentPrice);
 		prod.setSalesPrice(salesPrice);
 		prod.setCountryOfOrigin(countryOfOrigin);
-		return  pDB.updateProduct(prod);         
+		prod.setType(type);
+		prod.setSupplierID(supplierID);
+		prod.setActive(isActive);
+		return  pDB.updateProduct(prod,oldProductID);     
+		
 	}
-	public void insertNew(int productID, String name, int minStock, int purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin) throws Exception
+	public void insertNew(int productID, String name, int minStock, int purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin, int type, int supplierID, boolean isActive) throws Exception
 	{    
 		Product prod = new Product();
 		prod.setName(name);
@@ -58,7 +63,9 @@ public class ProductController {
 		prod.setRentPrice(rentPrice);
 		prod.setSalesPrice(salesPrice);
 		prod.setCountryOfOrigin(countryOfOrigin);
-
+		prod.setType(type);
+		prod.setSupplierID(supplierID);
+		prod.setActive(isActive);
 		try{
 			DbConnection.startTransaction();
 			pDB = new ProductDB();
@@ -74,9 +81,10 @@ public class ProductController {
 	public void deleteProduct(int productID) throws Exception{
 		pDB = new ProductDB();
 		Product prod = findProduct(productID);
+		prod.setActive(false);
 		
 		try{
-			pDB.deleteProduct(prod);
+			pDB.updateProduct(prod, productID);
 		}
 		catch(Exception e)
 		{

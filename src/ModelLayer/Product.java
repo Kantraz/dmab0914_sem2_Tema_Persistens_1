@@ -16,18 +16,16 @@ public class Product {
 	private String countryOfOrigin;
 	private int minStock;
 	private int id;
+	private int type;
+	private int supplierID;
+	private boolean isActive;
+
+
 
 	/**
 	 * 
 	 */
 	public Product() {
-		this.name = name;
-		this.purchasePrice = purchasePrice;
-		this.salesPrice = salesPrice;
-		this.rentPrice = rentPrice;
-		this.countryOfOrigin = countryOfOrigin;
-		this.minStock = minStock;
-		this.id = id;
 	}
 
 	/**
@@ -121,6 +119,46 @@ public class Product {
 	public void setId(int id) {
 		this.id = id;
 	}
+	/**
+	 * @return the type
+	 */
+	public int getType() {
+		return type;
+	}
 
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the supplierID
+	 */
+	public int getSupplierID() {
+		return supplierID;
+	}
+
+	/**
+	 * @param supplierID the supplierID to set
+	 */
+	public void setSupplierID(int supplierID) {
+		this.supplierID = supplierID;
+	}
+
+	/**
+	 * @return the isActive
+	 */
+	public boolean isActive() {
+		return isActive;
+	}
+
+	/**
+	 * @param isActive the isActive to set
+	 */
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 	
 }
