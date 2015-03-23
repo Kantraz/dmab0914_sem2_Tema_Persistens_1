@@ -8,67 +8,89 @@ import javax.swing.JButton;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JScrollPane;
 
+import ControlLayer.ProductController;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 
 public class PanelItems extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField txtName;
+	private JTextField txtPurchasePrice;
+	private JTextField txtSalesPrice;
+	private JTextField txtID;
+	private JTextField txtRentPrice;
+	private JTextField txtCountryOfOrigin;
+	private JTextField txtMinStock;
+	private JTextField txtType;
+	private JTextField txtSupplier_ID;
+	private ProductController pCTRL;
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelItems() {
+		pCTRL = new ProductController();
 		setPreferredSize(new Dimension(680, 340));
 		setLayout(null);
 		
-		JLabel label = new JLabel("Type:");
-		label.setBounds(10, 11, 81, 16);
-		add(label);
+		JLabel lblNavn = new JLabel("Navn:");
+		lblNavn.setBounds(10, 11, 81, 16);
+		add(lblNavn);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(101, 11, 226, 16);
-		add(textField);
+		txtName = new JTextField();
+		txtName.setColumns(10);
+		txtName.setBounds(101, 11, 226, 16);
+		add(txtName);
 		
-		JLabel label_1 = new JLabel("Pris pr stk:");
-		label_1.setBounds(10, 40, 81, 16);
-		add(label_1);
+		JLabel lblIndkbspris_1 = new JLabel("Indk\u00F8bspris:");
+		lblIndkbspris_1.setBounds(10, 40, 81, 16);
+		add(lblIndkbspris_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(101, 40, 226, 16);
-		add(textField_1);
+		txtPurchasePrice = new JTextField();
+		txtPurchasePrice.setColumns(10);
+		txtPurchasePrice.setBounds(101, 40, 226, 16);
+		add(txtPurchasePrice);
 		
-		JLabel label_2 = new JLabel("M\u00E6ngde:");
-		label_2.setBounds(10, 69, 81, 16);
-		add(label_2);
+		JLabel lblSalgspris = new JLabel("Salgspris:");
+		lblSalgspris.setBounds(10, 69, 81, 16);
+		add(lblSalgspris);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(101, 69, 226, 16);
-		add(textField_2);
+		txtSalesPrice = new JTextField();
+		txtSalesPrice.setColumns(10);
+		txtSalesPrice.setBounds(101, 69, 226, 16);
+		add(txtSalesPrice);
 		
-		JButton button = new JButton("Opret");
-		button.setBounds(10, 142, 97, 25);
-		add(button);
+		JButton btnCreate = new JButton("Opret");
+		btnCreate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+				createProduct();
+				}
+				catch(Exception e1)
+				{
+					e1.printStackTrace();
+				
+				}
+				}
+
+			
+		});
+		btnCreate.setBounds(10, 142, 97, 25);
+		add(btnCreate);
 		
-		JButton button_1 = new JButton("Opdater");
-		button_1.setEnabled(false);
-		button_1.setBounds(119, 142, 97, 25);
-		add(button_1);
+		JButton btnUpdate = new JButton("Opdater");
+		btnUpdate.setEnabled(false);
+		btnUpdate.setBounds(119, 142, 97, 25);
+		add(btnUpdate);
 		
-		JButton button_2 = new JButton("Slet");
-		button_2.setBounds(228, 142, 97, 25);
-		add(button_2);
+		JButton btnDelete = new JButton("Slet");
+		btnDelete.setBounds(228, 142, 97, 25);
+		add(btnDelete);
 		
-		JButton button_3 = new JButton("Ryd");
-		button_3.setBounds(337, 142, 97, 25);
-		add(button_3);
+		JButton btnClear = new JButton("Ryd");
+		btnClear.setBounds(337, 142, 97, 25);
+		add(btnClear);
 		
 		JLabel label_3 = new JLabel("");
 		label_3.setBounds(10, 182, 526, 16);
@@ -84,30 +106,30 @@ public class PanelItems extends JPanel {
 		label_4.setBounds(10, 8, 56, 16);
 		panel.add(label_4);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(92, 8, 226, 16);
-		panel.add(textField_3);
+		txtID = new JTextField();
+		txtID.setColumns(10);
+		txtID.setBounds(92, 8, 226, 16);
+		panel.add(txtID);
 		
-		JButton button_4 = new JButton("S\u00F8g");
-		button_4.setBounds(328, 5, 82, 22);
-		panel.add(button_4);
+		JButton btnSearch = new JButton("S\u00F8g");
+		btnSearch.setBounds(328, 5, 82, 22);
+		panel.add(btnSearch);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 209, 424, 123);
 		add(scrollPane);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(535, 11, 135, 16);
-		add(textField_4);
+		txtRentPrice = new JTextField();
+		txtRentPrice.setColumns(10);
+		txtRentPrice.setBounds(535, 11, 135, 16);
+		add(txtRentPrice);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(535, 40, 135, 16);
-		add(textField_5);
+		txtCountryOfOrigin = new JTextField();
+		txtCountryOfOrigin.setColumns(10);
+		txtCountryOfOrigin.setBounds(535, 40, 135, 16);
+		add(txtCountryOfOrigin);
 		
-		JLabel lblIndkbspris = new JLabel("Indk\u00F8bspris:");
+		JLabel lblIndkbspris = new JLabel("Oprindelse:");
 		lblIndkbspris.setBounds(444, 40, 81, 16);
 		add(lblIndkbspris);
 		
@@ -115,24 +137,50 @@ public class PanelItems extends JPanel {
 		lblPrisForLeje.setBounds(444, 11, 81, 16);
 		add(lblPrisForLeje);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(535, 98, 135, 16);
-		add(textField_6);
+		txtMinStock = new JTextField();
+		txtMinStock.setColumns(10);
+		txtMinStock.setBounds(535, 98, 135, 16);
+		add(txtMinStock);
 		
 		JLabel lblMin = new JLabel("Min lager:");
 		lblMin.setBounds(444, 98, 81, 16);
 		add(lblMin);
 		
-		JLabel lblLand = new JLabel("Land:");
+		JLabel lblLand = new JLabel("Type:");
 		lblLand.setBounds(444, 69, 81, 16);
 		add(lblLand);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(535, 69, 135, 16);
-		add(textField_7);
+		txtType = new JTextField();
+		txtType.setColumns(10);
+		txtType.setBounds(535, 69, 135, 16);
+		add(txtType);
+		
+		JLabel lblLeverandrId = new JLabel("Leverand\u00F8r ID:");
+		lblLeverandrId.setBounds(444, 142, 81, 16);
+		add(lblLeverandrId);
+		
+		txtSupplier_ID = new JTextField();
+		txtSupplier_ID.setColumns(10);
+		txtSupplier_ID.setBounds(535, 144, 135, 16);
+		add(txtSupplier_ID);
 
 	}
-
+	
+	protected void createProduct() throws Exception {
+		String name = txtName.getText();
+		int id = Integer.parseInt(txtID.getText());
+		float purchasePrice = Float.parseFloat( txtPurchasePrice.getText());
+		float salesPrice = Float.parseFloat(txtSalesPrice.getText());
+		float rentPrice = Float.parseFloat(txtRentPrice.getText());
+		String countryOfOrigin = txtCountryOfOrigin.getText();
+		int minStock = Integer.parseInt(txtMinStock.getText());
+		int type = Integer.parseInt(txtType.getText());
+		int supplier_ID = Integer.parseInt(txtSupplier_ID.getText());
+		
+		
+		pCTRL.insertNew(id, name, minStock, purchasePrice, rentPrice, salesPrice, countryOfOrigin, type, supplier_ID, true);
+	
+		
+		
+	}
 }

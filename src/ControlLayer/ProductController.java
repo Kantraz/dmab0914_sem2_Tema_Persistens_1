@@ -54,7 +54,7 @@ public class ProductController {
 		return  pDB.updateProduct(prod,oldProductID);     
 		
 	}
-	public void insertNew(int productID, String name, int minStock, int purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin, int type, int supplierID, boolean isActive) throws Exception
+	public void insertNew(int productID, String name, int minStock, float purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin, int type, int supplierID, boolean isActive) throws Exception
 	{    
 		Product prod = new Product();
 		prod.setName(name);
