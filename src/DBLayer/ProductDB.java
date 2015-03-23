@@ -57,6 +57,7 @@ public class ProductDB {
 	
 	public Product findProduct(int productID) {
 		String wClause = "  ID = '" +  "?'";
+		String wClause = "  ID = ? ";
 		return singleWhere(wClause,productID);
 	}
 
@@ -64,6 +65,7 @@ public class ProductDB {
 		Product newProd  = prod;
 		String query = "UPDATE Product SET ID = ?, Name = ?,PurchasePrice = ?, SalesPrice = ?, RentPrice = ?,CountryOfOrigin = ?, MinStock = ?, Type = ?, Supplier_ID = ?, IsActive = ?"
 				+ " WHERE ID = ?'";
+				+ " WHERE ID = ?";
                 System.out.println("Update query:" + query);
   		try{ // update product
   			PreparedStatement pstmt = con.prepareStatement(query);
@@ -103,6 +105,7 @@ public class ProductDB {
 			pstmt.setInt(1, productID);
 			pstmt.setQueryTimeout(5);
 			results = pstmt.executeQuery(query);
+			results = pstmt.executeQuery();
 			if( results.next() ){
 				prod = buildProduct(results);
 				//association is to be build
@@ -126,6 +129,7 @@ public class ProductDB {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setQueryTimeout(5);
 			results = pstmt.executeQuery(query);
+			results = pstmt.executeQuery();
 			while( results.next() ){
 				prod = buildProduct(results);
 				allProducts.add(prod);
