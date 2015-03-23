@@ -39,7 +39,7 @@ public class Main {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 636, 355);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(new OrderPanel());
+		frame.getContentPane().add(new CustomerPanel());
 		frame.setVisible(true);
 		frame.pack();
 

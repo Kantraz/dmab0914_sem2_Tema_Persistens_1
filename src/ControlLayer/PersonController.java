@@ -6,7 +6,7 @@ import ModelLayer.*;
 import DBLayer.*;
 
 /**
- * @author Sørenpikkemand
+ * @author SÃ¸ren
  *
  */
 public class PersonController {

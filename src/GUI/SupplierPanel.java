@@ -1,4 +1,6 @@
 package GUI;
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -20,6 +22,7 @@ public class SupplierPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public SupplierPanel() {
+		setPreferredSize(new Dimension(680, 340));
 		setLayout(null);
 		
 		JLabel label = new JLabel("Navn:");

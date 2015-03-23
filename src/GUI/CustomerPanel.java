@@ -1,4 +1,6 @@
 package GUI;
+import java.awt.Dimension;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -6,21 +8,29 @@ import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
+import ControlLayer.PersonController;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 
 public class CustomerPanel extends JPanel {
 	private JTextField txtName;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField txtAddress;
+	private JTextField txtCity;
+	private JTextField txtEmail;
+	private JTextField txtPhone;
 	private JTextField textField_5;
 	private JTextField textField_6;
-	private JTextField textField_7;
-
+	private JTextField txtZip;
+private PersonController pCTRL;
+private JTextField txtCountry;
 	/**
 	 * Create the panel.
 	 */
 	public CustomerPanel() {
+		pCTRL = new PersonController();
+		setPreferredSize(new Dimension(680, 340));
 		setLayout(null);
 		
 		JLabel label = new JLabel("Navn:");
@@ -36,54 +46,67 @@ public class CustomerPanel extends JPanel {
 		label_1.setBounds(10, 40, 56, 16);
 		add(label_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(133, 40, 225, 16);
-		add(textField_1);
+		txtAddress = new JTextField();
+		txtAddress.setColumns(10);
+		txtAddress.setBounds(133, 40, 225, 16);
+		add(txtAddress);
 		
 		JLabel label_2 = new JLabel("By:");
 		label_2.setBounds(10, 98, 56, 16);
 		add(label_2);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(133, 98, 225, 16);
-		add(textField_2);
+		txtCity = new JTextField();
+		txtCity.setColumns(10);
+		txtCity.setBounds(133, 98, 225, 16);
+		add(txtCity);
 		
 		JLabel label_3 = new JLabel("Email:");
 		label_3.setBounds(10, 127, 56, 16);
 		add(label_3);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(133, 127, 225, 16);
-		add(textField_3);
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		txtEmail.setBounds(133, 127, 225, 16);
+		add(txtEmail);
 		
 		JLabel label_4 = new JLabel("Telefon:");
 		label_4.setBounds(10, 156, 56, 16);
 		add(label_4);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(133, 156, 225, 16);
-		add(textField_4);
+		txtPhone = new JTextField();
+		txtPhone.setColumns(10);
+		txtPhone.setBounds(133, 156, 225, 16);
+		add(txtPhone);
 		
 		JCheckBox checkBox = new JCheckBox("Erhvervskunde");
 		checkBox.setEnabled(false);
-		checkBox.setBounds(10, 217, 113, 25);
+		checkBox.setBounds(11, 237, 113, 25);
 		add(checkBox);
 		
 		JLabel label_5 = new JLabel("CVR/EAN:");
-		label_5.setBounds(10, 251, 65, 16);
+		label_5.setBounds(11, 271, 65, 16);
 		add(label_5);
 		
 		textField_5 = new JTextField();
 		textField_5.setEditable(false);
 		textField_5.setColumns(10);
-		textField_5.setBounds(133, 251, 225, 16);
+		textField_5.setBounds(134, 271, 225, 16);
 		add(textField_5);
 		
 		JButton button = new JButton("Opret");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					createPerson();
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		button.setBounds(10, 298, 97, 25);
 		add(button);
 		
@@ -105,13 +128,13 @@ public class CustomerPanel extends JPanel {
 		add(button_4);
 		
 		JLabel label_6 = new JLabel("Oprettelsesdato:");
-		label_6.setBounds(10, 188, 113, 16);
+		label_6.setBounds(11, 208, 113, 16);
 		add(label_6);
 		
 		textField_6 = new JTextField();
 		textField_6.setEditable(false);
 		textField_6.setColumns(10);
-		textField_6.setBounds(133, 188, 225, 16);
+		textField_6.setBounds(134, 208, 225, 16);
 		add(textField_6);
 		
 		JLabel label_7 = new JLabel("");
@@ -125,17 +148,38 @@ public class CustomerPanel extends JPanel {
 		
 		JCheckBox checkBox_1 = new JCheckBox("Forening");
 		checkBox_1.setEnabled(false);
-		checkBox_1.setBounds(133, 218, 113, 25);
+		checkBox_1.setBounds(134, 238, 113, 25);
 		add(checkBox_1);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(134, 71, 225, 16);
-		add(textField_7);
+		txtZip = new JTextField();
+		txtZip.setColumns(10);
+		txtZip.setBounds(134, 71, 225, 16);
+		add(txtZip);
 		
 		JLabel label_8 = new JLabel("Postnummer:");
 		label_8.setBounds(11, 71, 56, 16);
 		add(label_8);
+		
+		txtCountry = new JTextField();
+		txtCountry.setColumns(10);
+		txtCountry.setBounds(133, 183, 225, 16);
+		add(txtCountry);
+		
+		JLabel lblLand = new JLabel("Land:");
+		lblLand.setBounds(10, 183, 56, 16);
+		add(lblLand);
 
+	}
+
+	protected void createPerson() throws NumberFormatException, Exception {
+		String name = txtName.getText();
+		String address = txtAddress.getText();
+		int phone = Integer.parseInt((String)(txtPhone.getText()));
+		String email = txtEmail.getText();
+		String city = txtCity.getText();
+		String zipCode = txtZip.getText();
+		String country = txtCountry.getText();
+		pCTRL.insertNew(name, address, phone, email, city, zipCode, country);
+		
 	}
 }
