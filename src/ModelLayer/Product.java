@@ -18,7 +18,7 @@ public class Product {
 	private int id;
 	private int type;
 	private int supplierID;
-	private boolean isActive;
+	private int isActive;
 
 
 
@@ -155,10 +155,10 @@ public class Product {
 	}
 
 	/**
-	 * @param isActive the isActive to set
+	 * @param isActive2 the isActive to set
 	 */
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	public void setActive(int isActive2) {
+		this.isActive = isActive2;
 	}
 	
 }
