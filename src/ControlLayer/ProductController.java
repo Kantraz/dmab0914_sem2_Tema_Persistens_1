@@ -33,7 +33,7 @@ public class ProductController {
 		return allProd;
 	}
 
-	public void updateProduct(int oldProductID, int newProductID, String name, int minStock, int purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin, int type, int supplierID, int isActive)
+	public void updateProduct(int oldProductID, int newProductID, String name, int minStock, float purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin, int type, int supplierID, int isActive)
 	{
 		pDB = new ProductDB();
 		Product prod = new Product();
@@ -50,11 +50,7 @@ public class ProductController {
 		pDB.updateProduct(prod,oldProductID);     
 		
 	}
-<<<<<<< HEAD
-	public void insertNew(int productID, String name, int minStock, float purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin, int type, int supplierID, boolean isActive) throws Exception
-=======
-	public void insertNew(int productID, String name, int minStock, int purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin, int type, int supplierID, int isActive) throws Exception
->>>>>>> origin/master
+	public void insertNew(int productID, String name, int minStock, float purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin, int type, int supplierID, int isActive) throws Exception
 	{    
 		Product prod = new Product();
 		prod.setName(name);

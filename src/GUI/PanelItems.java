@@ -9,6 +9,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JScrollPane;
 
 import ControlLayer.ProductController;
+import ModelLayer.Product;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -25,11 +26,13 @@ public class PanelItems extends JPanel {
 	private JTextField txtType;
 	private JTextField txtSupplier_ID;
 	private ProductController pCTRL;
+	private int oldId;
 
 	/**
 	 * Create the panel.
 	 */
 	public PanelItems() {
+		oldId = 0;
 		pCTRL = new ProductController();
 		setPreferredSize(new Dimension(680, 340));
 		setLayout(null);
@@ -80,6 +83,14 @@ public class PanelItems extends JPanel {
 		add(btnCreate);
 		
 		JButton btnUpdate = new JButton("Opdater");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateProduct();
+				
+			}
+
+			
+		});
 		btnUpdate.setEnabled(false);
 		btnUpdate.setBounds(119, 142, 97, 25);
 		add(btnUpdate);
@@ -169,6 +180,7 @@ public class PanelItems extends JPanel {
 	protected void createProduct() throws Exception {
 		String name = txtName.getText();
 		int id = Integer.parseInt(txtID.getText());
+		oldId = id;
 		float purchasePrice = Float.parseFloat( txtPurchasePrice.getText());
 		float salesPrice = Float.parseFloat(txtSalesPrice.getText());
 		float rentPrice = Float.parseFloat(txtRentPrice.getText());
@@ -178,9 +190,42 @@ public class PanelItems extends JPanel {
 		int supplier_ID = Integer.parseInt(txtSupplier_ID.getText());
 		
 		
-		pCTRL.insertNew(id, name, minStock, purchasePrice, rentPrice, salesPrice, countryOfOrigin, type, supplier_ID, true);
+		pCTRL.insertNew(id, name, minStock, purchasePrice, rentPrice, salesPrice, countryOfOrigin, type, supplier_ID, 1);
 	
+	}
+	
+	protected void updateProduct() {
+		String name = txtName.getText();
+		int id = Integer.parseInt(txtID.getText());
+		float purchasePrice = Float.parseFloat( txtPurchasePrice.getText());
+		float salesPrice = Float.parseFloat(txtSalesPrice.getText());
+		float rentPrice = Float.parseFloat(txtRentPrice.getText());
+		String countryOfOrigin = txtCountryOfOrigin.getText();
+		int minStock = Integer.parseInt(txtMinStock.getText());
+		int type = Integer.parseInt(txtType.getText());
+		int supplier_ID = Integer.parseInt(txtSupplier_ID.getText());
+		
+		pCTRL.updateProduct(oldId, id, name, minStock, purchasePrice, rentPrice, salesPrice, countryOfOrigin, type, supplier_ID, 1);
+	}
+	
+	protected void delete() throws Exception{
+		int id = Integer.parseInt(txtID.getText());
+		pCTRL.deleteProduct(id);
+	}
+	
+	protected void search(){
+		oldId = Integer.parseInt(txtID.getText());
+		int id = Integer.parseInt(txtID.getText());
+		Product tempP = pCTRL.findProduct(id);
+		txtPurchasePrice.setText((String) String.valueOf(tempP.getPurchasePrice()));
+		txtSalesPrice.setText((String) String.valueOf(tempP.getSalesPrice()));
+		txtRentPrice.setText((String) String.valueOf(tempP.getRentPrice()));
+		txtCountryOfOrigin.setText(tempP.getCountryOfOrigin());
+		txtMinStock.setText((String) String.valueOf(tempP.getMinStock()));
+		txtType.setText((String) String.valueOf(tempP.getType()));
+		txtSupplier_ID.setText((String) String.valueOf(tempP.getSupplierID()));
 		
 		
 	}
+	
 }
