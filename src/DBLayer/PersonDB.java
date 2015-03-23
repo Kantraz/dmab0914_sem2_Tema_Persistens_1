@@ -19,14 +19,8 @@ public class PersonDB {
 	public void insertPerson(Person newPers) throws Exception
 	{  	  
 		int nextID = GetMax.getMaxId("Select max(ID) from Person");
-<<<<<<< HEAD
-		String query="INSERT INTO Person (ID, Name, Address, PhoneNo, Email, ZipCode, Country, IsActive) VALUES"
-				+ "(?,?,?,?,?,?,?,?)";
-=======
 		String query="INSERT INTO Person(ID, Name, Address, PhoneNo, Email, ZipCode, Country, IsActive)  "
 				+ "VALUES(?,?,?,?,?,?,?,?,?)";
->>>>>>> origin/master
-
 		try{ // insert new person
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, nextID);
@@ -39,10 +33,6 @@ public class PersonDB {
 			pstmt.setInt(8, newPers.getIsActive());
 			pstmt.setQueryTimeout(5);
 			pstmt.executeUpdate();
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 			pstmt.close();
 		}//end try
 		catch(SQLException ex){
@@ -51,11 +41,7 @@ public class PersonDB {
 	}
 
 	public Person findPerson(int phoneNo) {
-<<<<<<< HEAD
 		String wClause = "  phoneNo = ?";
-=======
-		String wClause = "  phoneNo = '" +  "?'";
->>>>>>> origin/master
 		return singleWhere(wClause,phoneNo);
 	}
 
@@ -88,12 +74,7 @@ public class PersonDB {
 	//method to build the query
 	private String buildQuery(String wClause)
 	{
-<<<<<<< HEAD
 		String query="SELECT ID, Name, Address, PhoneNo, Email, ZipCode, Country, IsActive FROM Person";
-
-=======
-		String query="SELECT ID, Name, Adress, PhoneNo, Email, ZipCode, Country, IsActive FROM Person";
->>>>>>> origin/master
 		if (wClause.length()>0)
 			query=query+" WHERE "+ wClause;
 

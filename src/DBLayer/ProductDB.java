@@ -160,13 +160,6 @@ public class ProductDB {
 			prod.setMinStock(results.getInt("MinStock"));
 			prod.setType(results.getInt("Type"));
 			prod.setSupplierID(results.getInt("Supplier_ID"));
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-			prod.setActive(results.getBoolean("IsActive"));
->>>>>>> origin/master
->>>>>>> origin/master
 			prod.setActive(results.getInt("IsActive"));
 		}
 		catch(Exception e)
