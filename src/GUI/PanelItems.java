@@ -96,6 +96,16 @@ public class PanelItems extends JPanel {
 		add(btnUpdate);
 		
 		JButton btnDelete = new JButton("Slet");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					delete();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnDelete.setBounds(228, 142, 97, 25);
 		add(btnDelete);
 		
@@ -123,6 +133,11 @@ public class PanelItems extends JPanel {
 		panel.add(txtID);
 		
 		JButton btnSearch = new JButton("S\u00F8g");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				search();
+			}
+		});
 		btnSearch.setBounds(328, 5, 82, 22);
 		panel.add(btnSearch);
 		
@@ -215,7 +230,7 @@ public class PanelItems extends JPanel {
 	
 	protected void search(){
 		oldId = Integer.parseInt(txtID.getText());
-		int id = Integer.parseInt(txtID.getText());
+		int id = oldId;
 		Product tempP = pCTRL.findProduct(id);
 		txtPurchasePrice.setText((String) String.valueOf(tempP.getPurchasePrice()));
 		txtSalesPrice.setText((String) String.valueOf(tempP.getSalesPrice()));
@@ -224,7 +239,7 @@ public class PanelItems extends JPanel {
 		txtMinStock.setText((String) String.valueOf(tempP.getMinStock()));
 		txtType.setText((String) String.valueOf(tempP.getType()));
 		txtSupplier_ID.setText((String) String.valueOf(tempP.getSupplierID()));
-		
+		txtName.setText(tempP.getName());
 		
 	}
 	

@@ -9,7 +9,7 @@ import DBLayer.*;
 import ModelLayer.*;
 
 /**
- * @author Søren
+ * @author Sï¿½ren
  *
  */
 public class ProductController {
@@ -53,6 +53,7 @@ public class ProductController {
 	public void insertNew(int productID, String name, int minStock, float purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin, int type, int supplierID, int isActive) throws Exception
 	{    
 		Product prod = new Product();
+		prod.setId(productID);
 		prod.setName(name);
 		prod.setMinStock(minStock);
 		prod.setPurchasePrice(purchasePrice);

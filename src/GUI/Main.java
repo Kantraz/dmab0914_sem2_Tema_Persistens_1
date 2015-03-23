@@ -2,6 +2,8 @@ package GUI;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import javax.swing.JTabbedPane;
 
 
 
@@ -39,10 +41,13 @@ public class Main {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 636, 355);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(new CustomerPanel());
+		PanelItems panelItems = new PanelItems();
+		frame.getContentPane().add(panelItems, BorderLayout.SOUTH);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		frame.getContentPane().add(tabbedPane, BorderLayout.NORTH);
 		frame.setVisible(true);
 		frame.pack();
 
 	}
-
 }
