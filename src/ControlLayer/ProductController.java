@@ -13,11 +13,7 @@ import ModelLayer.*;
  *
  */
 public class ProductController {
-
-	private Product p;
 	private ProductDB pDB;
-	private ProductIFDB pIFDB;
-
 	/**
 	 * 
 	 */
@@ -37,7 +33,7 @@ public class ProductController {
 		return allProd;
 	}
 
-	public int updateProduct(int oldProductID, int newProductID, String name, int minStock, int purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin, int type, int supplierID, boolean isActive)
+	public void updateProduct(int oldProductID, int newProductID, String name, int minStock, int purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin, int type, int supplierID, int isActive)
 	{
 		pDB = new ProductDB();
 		Product prod = new Product();
@@ -51,10 +47,10 @@ public class ProductController {
 		prod.setType(type);
 		prod.setSupplierID(supplierID);
 		prod.setActive(isActive);
-		return  pDB.updateProduct(prod,oldProductID);     
+		pDB.updateProduct(prod,oldProductID);     
 		
 	}
-	public void insertNew(int productID, String name, int minStock, int purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin, int type, int supplierID, boolean isActive) throws Exception
+	public void insertNew(int productID, String name, int minStock, int purchasePrice, float rentPrice, float salesPrice, String countryOfOrigin, int type, int supplierID, int isActive) throws Exception
 	{    
 		Product prod = new Product();
 		prod.setName(name);
@@ -81,7 +77,7 @@ public class ProductController {
 	public void deleteProduct(int productID) throws Exception{
 		pDB = new ProductDB();
 		Product prod = findProduct(productID);
-		prod.setActive(false);
+		prod.setActive(0);
 		
 		try{
 			pDB.updateProduct(prod, productID);
