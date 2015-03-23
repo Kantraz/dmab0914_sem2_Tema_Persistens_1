@@ -150,10 +150,7 @@ public class Product {
 	/**
 	 * @return the isActive
 	 */
-<<<<<<< HEAD
-=======
-	public boolean isActive() {
->>>>>>> origin/master
+
 	public int isActive() {
 		return isActive;
 	}

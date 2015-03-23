@@ -79,11 +79,8 @@ public class OrderDB {
 		return singleWhere(wClause,orderID);
 	}
 
-<<<<<<< HEAD
-	public int updateProduct(Product prod, int oldID) {
-	public void updateProduct(Product prod, int oldID) {
+	public void updateProduct(Product prod, int oldID){
 		Product newProd  = prod;
-		int rc=-1;
 		String query = "UPDATE Product SET ID = ?, Name = ?,PurchasePrice = ?, SalesPrice = ?, RentPrice = ?,CountryOfOrigin = ?, MinStock = ?, Type = ?, Supplier_ID = ?, IsActive = ?"
 				+ " WHERE ID = ?'";
 		System.out.println("Update query:" + query);
@@ -98,22 +95,15 @@ public class OrderDB {
 			pstmt.setInt(7, newProd.getMinStock());
 			pstmt.setInt(8, newProd.getType());
 			pstmt.setInt(9, newProd.getSupplierID());
-			pstmt.setBoolean(10, newProd.isActive());
 			pstmt.setInt(10, newProd.isActive());
 			pstmt.setInt(11, oldID);
-
 			pstmt.setQueryTimeout(5);
-			rc = pstmt.executeUpdate();
-
 			pstmt.close();
 		}
 		catch(Exception ex){
 			System.out.println("Update exception in product db: "+ex);
 		}
-		return(rc);
 	}
-=======
->>>>>>> origin/master
 
 
 	//Singelwhere is used when we only select one product 	
@@ -238,15 +228,10 @@ public class OrderDB {
 		try{ // update product
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setString(1, tempO.getDeliveryStatus());
-
-<<<<<<< HEAD
-		pstmt.setQueryTimeout(5);
-		pstmt.executeUpdate();
-=======
+			pstmt.setQueryTimeout(5);
+			pstmt.executeUpdate();
 			pstmt.setQueryTimeout(5);
 			pstmt.executeUpdate(query);
->>>>>>> origin/master
-
 			pstmt.close();
 		}
 		catch(Exception ex){

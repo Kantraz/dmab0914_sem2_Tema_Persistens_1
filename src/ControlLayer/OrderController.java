@@ -6,13 +6,10 @@ package ControlLayer;
 import java.util.ArrayList;
 import java.util.Date;
 
-import DBLayer.DbConnection;
 import DBLayer.GetMax;
 import DBLayer.OrderDB;
-import DBLayer.ProductDB;
 import ModelLayer.Order;
 import ModelLayer.PartOrder;
-import ModelLayer.Person;
 import ModelLayer.Product;
 
 /**
@@ -20,12 +17,8 @@ import ModelLayer.Product;
  *
  */
 public class OrderController {
-	
-	private PersonController perCon;
 	private ProductController proCon;
-	private Order o;
 	private OrderDB oDB;
-	private PartOrder pO;
 	private Order tempOrder;
 
 	/**
