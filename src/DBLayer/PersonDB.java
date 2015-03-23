@@ -19,14 +19,8 @@ public class PersonDB {
 	public void insertPerson(Person newPers) throws Exception
 	{  	  
 		int nextID = GetMax.getMaxId("Select max(ID) from Person");
-<<<<<<< HEAD
-
 		String query="INSERT INTO Person (ID, Name, Address, PhoneNo, Email, ZipCode, Country, IsActive) VALUES"
 				+ "(?,?,?,?,?,?,?,?)";
-=======
-		String query="INSERT INTO Person(ID, Name, Address, PhoneNo, Email, ZipCode, Country, IsActive)  "
-				+ "VALUES(?,?,?,?,?,?,?,?,?)";
->>>>>>> origin/master
 
 		try{ // insert new person
 			PreparedStatement pstmt = con.prepareStatement(query);
@@ -38,12 +32,8 @@ public class PersonDB {
 			pstmt.setString(6, newPers.getZipCode());
 			pstmt.setString(7, newPers.getCountry());
 			pstmt.setInt(8, newPers.getIsActive());
-<<<<<<< HEAD
 			pstmt.setQueryTimeout(5);
 			pstmt.executeUpdate();
-=======
-			pstmt.setQueryTimeout(5);	
->>>>>>> origin/master
 
 			pstmt.close();
 		}//end try
@@ -53,7 +43,6 @@ public class PersonDB {
 	}
 
 	public Person findPerson(int phoneNo) {
-		String wClause = "  phoneNo = '" +  "?'";
 		String wClause = "  phoneNo = ?";
 		return singleWhere(wClause,phoneNo);
 	}
@@ -87,7 +76,6 @@ public class PersonDB {
 	//method to build the query
 	private String buildQuery(String wClause)
 	{
-		String query="SELECT ID, Name, Adress, PhoneNo, Email, ZipCode, Country, IsActive FROM Person";
 		String query="SELECT ID, Name, Address, PhoneNo, Email, ZipCode, Country, IsActive FROM Person";
 
 		if (wClause.length()>0)
@@ -100,7 +88,6 @@ public class PersonDB {
 	{   Person pers = new Person();
 	try{ // the columns from the table product  are used
 		pers.setName(results.getString("Name"));
-		pers.setAddress(results.getString("Adress"));
 		pers.setAddress(results.getString("Address"));
 		pers.setPhoneNo(results.getInt("PhoneNo"));
 		pers.setEmail(results.getString("Email"));
@@ -122,7 +109,6 @@ public class PersonDB {
 
 	public void updatePerson(Person pers, int oldPhone) {
 		Person newPers  = pers;
-		String query = "UPDATE Person SET Name = ?,Adress = ?, PhoneNo = ?, Email = ?,ZipCode = ?, Country = ?, IsActive = ?"
 		String query = "UPDATE Person SET Name = ?,Address = ?, PhoneNo = ?, Email = ?,ZipCode = ?, Country = ?, IsActive = ?"
 				+ " WHERE PhoneNo = ?";
 		System.out.println("Update query:" + query);

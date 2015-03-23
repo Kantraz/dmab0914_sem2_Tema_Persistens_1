@@ -43,7 +43,6 @@ public class ProductDB {
 				pstmt.setInt(7, newProd.getMinStock());
 				pstmt.setInt(8, newProd.getType());
 				pstmt.setInt(9, newProd.getSupplierID());
-				pstmt.setBoolean(10, newProd.isActive());
 				pstmt.setInt(10, newProd.isActive());
 	          pstmt.setQueryTimeout(5);
 	     	  pstmt.executeUpdate();
@@ -56,7 +55,6 @@ public class ProductDB {
 	    }
 	
 	public Product findProduct(int productID) {
-		String wClause = "  ID = '" +  "?'";
 		String wClause = "  ID = ? ";
 		return singleWhere(wClause,productID);
 	}
@@ -64,7 +62,6 @@ public class ProductDB {
 	public void updateProduct(Product prod, int oldID) {
 		Product newProd  = prod;
 		String query = "UPDATE Product SET ID = ?, Name = ?,PurchasePrice = ?, SalesPrice = ?, RentPrice = ?,CountryOfOrigin = ?, MinStock = ?, Type = ?, Supplier_ID = ?, IsActive = ?"
-				+ " WHERE ID = ?'";
 				+ " WHERE ID = ?";
                 System.out.println("Update query:" + query);
   		try{ // update product
@@ -78,13 +75,10 @@ public class ProductDB {
 			pstmt.setInt(7, newProd.getMinStock());
 			pstmt.setInt(8, newProd.getType());
 			pstmt.setInt(9, newProd.getSupplierID());
-			pstmt.setBoolean(10, newProd.isActive());
 			pstmt.setInt(10, newProd.isActive());
 			pstmt.setInt(11, oldID);
-<<<<<<< HEAD
 			pstmt.setQueryTimeout(5);
 			pstmt.executeUpdate();
-
 			pstmt.close();
 		}
 	 	catch(Exception ex){
@@ -104,7 +98,6 @@ public class ProductDB {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, productID);
 			pstmt.setQueryTimeout(5);
-			results = pstmt.executeQuery(query);
 			results = pstmt.executeQuery();
 			if( results.next() ){
 				prod = buildProduct(results);
@@ -128,7 +121,6 @@ public class ProductDB {
 		try{ // read the product from the database
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setQueryTimeout(5);
-			results = pstmt.executeQuery(query);
 			results = pstmt.executeQuery();
 			while( results.next() ){
 				prod = buildProduct(results);
@@ -168,7 +160,6 @@ public class ProductDB {
 			prod.setMinStock(results.getInt("MinStock"));
 			prod.setType(results.getInt("Type"));
 			prod.setSupplierID(results.getInt("Supplier_ID"));
-			prod.setActive(results.getBoolean("IsActive"));
 			prod.setActive(results.getInt("IsActive"));
 		}
 		catch(Exception e)
