@@ -81,6 +81,7 @@ public class OrderDB {
 
 <<<<<<< HEAD
 	public int updateProduct(Product prod, int oldID) {
+	public void updateProduct(Product prod, int oldID) {
 		Product newProd  = prod;
 		int rc=-1;
 		String query = "UPDATE Product SET ID = ?, Name = ?,PurchasePrice = ?, SalesPrice = ?, RentPrice = ?,CountryOfOrigin = ?, MinStock = ?, Type = ?, Supplier_ID = ?, IsActive = ?"
@@ -98,6 +99,7 @@ public class OrderDB {
 			pstmt.setInt(8, newProd.getType());
 			pstmt.setInt(9, newProd.getSupplierID());
 			pstmt.setBoolean(10, newProd.isActive());
+			pstmt.setInt(10, newProd.isActive());
 			pstmt.setInt(11, oldID);
 
 			pstmt.setQueryTimeout(5);
@@ -112,6 +114,7 @@ public class OrderDB {
 	}
 =======
 >>>>>>> origin/master
+
 
 	//Singelwhere is used when we only select one product 	
 	private Order singleWhere(String wClause, int orderID)

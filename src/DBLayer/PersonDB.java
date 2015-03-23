@@ -44,6 +44,7 @@ public class PersonDB {
 =======
 			pstmt.setQueryTimeout(5);	
 >>>>>>> origin/master
+
 			pstmt.close();
 		}//end try
 		catch(SQLException ex){

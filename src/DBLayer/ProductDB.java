@@ -44,6 +44,7 @@ public class ProductDB {
 				pstmt.setInt(8, newProd.getType());
 				pstmt.setInt(9, newProd.getSupplierID());
 				pstmt.setBoolean(10, newProd.isActive());
+				pstmt.setInt(10, newProd.isActive());
 	          pstmt.setQueryTimeout(5);
 	     	  pstmt.executeUpdate();
 	     	 pstmt.close();
@@ -76,6 +77,7 @@ public class ProductDB {
 			pstmt.setInt(8, newProd.getType());
 			pstmt.setInt(9, newProd.getSupplierID());
 			pstmt.setBoolean(10, newProd.isActive());
+			pstmt.setInt(10, newProd.isActive());
 			pstmt.setInt(11, oldID);
 <<<<<<< HEAD
 			pstmt.setQueryTimeout(5);
@@ -163,6 +165,7 @@ public class ProductDB {
 			prod.setType(results.getInt("Type"));
 			prod.setSupplierID(results.getInt("Supplier_ID"));
 			prod.setActive(results.getBoolean("IsActive"));
+			prod.setActive(results.getInt("IsActive"));
 		}
 		catch(Exception e)
 		{
