@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="E:/Dropbox/Workspace/Western Style/lib/commons-lang3-3.3.2.jar"/>
-	<classpathentry kind="lib" path="E:/Dropbox/Workspace/Western Style/lib/sqljdbc4.jar"/>
+	<classpathentry kind="lib" path="E:/Dropbox/Workspace/dmab0914_sem2_Tema_Persistens_1/Lib/commons-lang3-3.3.2.jar"/>
+	<classpathentry kind="lib" path="E:/Dropbox/Workspace/dmab0914_sem2_Tema_Persistens_1/Lib/sqljdbc4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
