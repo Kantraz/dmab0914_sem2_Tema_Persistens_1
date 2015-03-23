@@ -16,11 +16,9 @@ public class PersonDB {
 		con = DbConnection.getInstance().getDBcon();
 	}
 
-	public int insertPerson(Person newPers) throws Exception
+	public void insertPerson(Person newPers) throws Exception
 	{  	  
 		int nextID = GetMax.getMaxId("Select max(ID) from Person");
-
-		int rc = -1;
 		String query="INSERT INTO Person(ID, Name, Address, PhoneNo, Email, ZipCode, Country, IsActive)  "
 				+ "VALUES(?,?,?,?,?,?,?,?,?)";
 
@@ -34,15 +32,13 @@ public class PersonDB {
 			pstmt.setString(6, newPers.getZipCode());
 			pstmt.setString(7, newPers.getCountry());
 			pstmt.setInt(8, newPers.getIsActive());
-			pstmt.setQueryTimeout(5);
-			rc = pstmt.executeUpdate(query);
+			pstmt.setQueryTimeout(5);	
 			pstmt.close();
 		}//end try
 		catch(SQLException ex){
 			System.out.println("Produkt ikke oprettet");
 			throw new Exception ("Product is not inserted correct");
 		}
-		return(rc);
 	}
 
 	public Person findPerson(int phoneNo) {
