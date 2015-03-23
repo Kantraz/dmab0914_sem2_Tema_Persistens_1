@@ -44,21 +44,42 @@ public class OrderController {
 
 	public Order findOrder(int orderID){
 		oDB = new OrderDB();
+		Order o = oDB.findOrder(orderID);
 		
-		return oDB.findOrder(orderID);
+		return o;
+	}
+	public void setStatus(String status,int orderID){
+		oDB = new OrderDB();
+		Order o = oDB.findOrder(orderID);
+		o.setDeliveryStatus(status);
+		oDB.setStatus(o);
+	}
+	public ArrayList<PartOrder> findPartOrder(int orderID){
+		oDB = new OrderDB();
+		Order o = findOrder(orderID);
+		ArrayList<PartOrder> allPartOrders = new ArrayList<PartOrder>();
+		allPartOrders = oDB.getAllPartOrders(o.getOrderID());
+		o.addAllPartorders(allPartOrders);
+		return allPartOrders;
 	}
 	public ArrayList<Order> findAllOrders()
 	{
 		oDB = new OrderDB();
 		ArrayList<Order> allOrders = new ArrayList<Order>();
 		allOrders = oDB.getAllOrders();
+		for(Order o : allOrders){
+			findPartOrder(o.getOrderID());
+		}
+		
 		return allOrders;
 	}
 	
 	public void insertNewPartOrder(int productID,int amount) throws Exception
 	{    
 		Product product = proCon.findProduct(productID);
-		tempOrder.addPartorder(amount,product.getName(),product.getSalesPrice(),tempOrder.getOrderID());
+		tempOrder.addPartorder(amount,product.getName(),product.getSalesPrice(),tempOrder.getOrderID(),productID);
+		PartOrder po = tempOrder.getPartOrders().get(tempOrder.getPartOrders().size() - 1);
+		oDB.addPartOrder(po);
 	}
 	public void removePartOrder(int index) throws Exception
 	{    
@@ -77,8 +98,4 @@ public class OrderController {
 		}
 		
 	}
-	public void removeOrder(int orderID){
-		oDB.removeOrder(orderID);
-	}
-
 }

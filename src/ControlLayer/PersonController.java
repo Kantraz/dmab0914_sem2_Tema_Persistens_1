@@ -20,7 +20,7 @@ public class PersonController {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Person findPerson(String phoneNo){
+	public Person findPerson(int phoneNo){
 		PersonDB pDB = new PersonDB();
 		return pDB.findPerson(phoneNo);
 	}
@@ -32,19 +32,19 @@ public class PersonController {
 		allPers = pDB.getAllPersons(false);
 		return allPers;
 	}
-	public int updatePerson(String name, String address, int phoneNo, String email, String city, String zipCode, String country, int isActive, int oldPhone)
+	public void updatePerson(String name, String address, int phoneNo, String email, String city, String zipCode, String country, int isActive, int oldPhone)
 	{
 		PersonDB pDB = new PersonDB();
 		Person pers = new Person(name, address, phoneNo, email, city, zipCode, country, isActive);
-		return  pDB.updatePerson(pers, oldPhone);         
+		pDB.updatePerson(pers, oldPhone);         
 	}
-	public void insertNew(String name, String address, int phoneNo, String email, String city, int zipCode, String country) throws Exception
+	public void insertNew(String name, String address, int phoneNo, String email, String city, String zipCode, String country) throws Exception
 	{    
-		Customer custObj = new Customer(name, address, phoneNo, email, city, zipCode, country);
+		Person custObj = new Person(name, address, phoneNo, email, city, zipCode, country,1);
 		try{
 			DbConnection.startTransaction();
 			PersonDB pDB = new PersonDB();
-			pDB.insertCustomer(custObj);
+			pDB.insertPerson(custObj);
 			DbConnection.commitTransaction();
 		}
 		catch(Exception e)
@@ -58,7 +58,7 @@ public class PersonController {
 		try{
 			DbConnection.startTransaction();
 			PersonDB pDB = new PersonDB();
-			pDB.deleteCustomer(phoneNo);
+			pDB.deletePerson(phoneNo);
 			DbConnection.commitTransaction();
 		}
 		catch(Exception e)

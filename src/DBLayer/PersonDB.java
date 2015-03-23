@@ -24,7 +24,7 @@ public class PersonDB {
 		String query="INSERT INTO Person(ID, Name, Address, PhoneNo, Email, ZipCode, Country, IsActive)  "
 				+ "VALUES(?,?,?,?,?,?,?,?,?)";
 
-		try{ // insert new product
+		try{ // insert new person
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, nextID);
 			pstmt.setString(2, newPers.getName());
@@ -110,11 +110,10 @@ public class PersonDB {
 		return null;
 	}
 
-	public int updatePerson(Person pers, int oldPhone) {
+	public void updatePerson(Person pers, int oldPhone) {
 		Person newPers  = pers;
-		int rc=-1;
 		String query = "UPDATE Person SET Name = ?,Adress = ?, PhoneNo = ?, Email = ?,ZipCode = ?, Country = ?, IsActive = ?"
-				+ " WHERE PhoneNo = ?'";
+				+ " WHERE PhoneNo = ?";
 		System.out.println("Update query:" + query);
 		try{ // update product
 			PreparedStatement pstmt = con.prepareStatement(query);
@@ -128,14 +127,13 @@ public class PersonDB {
 			pstmt.setInt(8, oldPhone);
 
 			pstmt.setQueryTimeout(5);
-			rc = pstmt.executeUpdate(query);
+			pstmt.executeUpdate(query);
 
 			pstmt.close();
 		}
 		catch(Exception ex){
 			System.out.println("Update exception in product db: "+ex);
 		}
-		return(rc);
 	}
 
 	public void deletePerson(int phoneNo) {

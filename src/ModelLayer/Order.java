@@ -71,9 +71,12 @@ public void setOrderID(int orderID) {
 public ArrayList<PartOrder> getPartOrders() {
 	return partOrders;
 }
-public void addPartorder(int amount, String name, float price, int orderID){
-	partOrders.add(new PartOrder(amount,name,price,orderID));
+public void addPartorder(int amount, String name, float price, int orderID, int productID){
+	partOrders.add(new PartOrder(amount,name,price,orderID,productID));
 	orderPrice += amount*price;
+}
+public void addAllPartorders(ArrayList<PartOrder> po){
+	partOrders = po;
 }
 public void removePartorder(int i){
 	partOrders.remove(i);

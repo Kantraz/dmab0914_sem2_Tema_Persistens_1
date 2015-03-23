@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import ModelLayer.Order;
+import ModelLayer.PartOrder;
 import ModelLayer.Product;
 
 /**
@@ -29,9 +30,8 @@ public class OrderDB {
 		con = DbConnection.getInstance().getDBcon();
 	}
 
-	public int addOrder(Order newOrder) throws Exception
+	public void addOrder(Order newOrder) throws Exception
 	{  	  
-		int rc = -1;
 		String query="INSERT INTO Order(ID, Date,DeliveryStatus, DeliveryDate, Price, Person_ID)  "
 				+ "VALUES(?,?,?,?,?,?)";
 
@@ -44,14 +44,34 @@ public class OrderDB {
 			pstmt.setFloat(5, newOrder.getOrderPrice());
 			pstmt.setInt(6, newOrder.getCustomerID());
 			pstmt.setQueryTimeout(5);
-			rc = pstmt.executeUpdate(query);
+			pstmt.executeUpdate(query);
 			pstmt.close();
 		}//end try
 		catch(SQLException ex){
 			System.out.println("Ordre ikke oprettet");
 			throw new Exception ("Order is not inserted correct");
 		}
-		return(rc);
+	}
+	
+	public void addPartOrder(PartOrder newPartOrder) throws Exception
+	{  	  
+		String query="INSERT INTO PartOrder(Order_ID, Product_ID,Amount, ProductPrice)  "
+				+ "VALUES(?,?,?,?)";
+
+		try{ // insert new order
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, newPartOrder.getOrderID());
+			pstmt.setInt(2, newPartOrder.getProductID());
+			pstmt.setInt(3, newPartOrder.getAmount());
+			pstmt.setFloat(4, newPartOrder.getPrice());
+			pstmt.setQueryTimeout(5);
+			pstmt.executeUpdate(query);
+			pstmt.close();
+		}//end try
+		catch(SQLException ex){
+			System.out.println("Ordrelinie ikke oprettet");
+			throw new Exception ("PartOrder is not inserted correct");
+		}
 	}
 
 	public Order findOrder(int orderID) {
@@ -137,8 +157,43 @@ public class OrderDB {
 			System.out.println("Query exception: "+e);
 		}
 
-		return allProducts;
+		return allOrders;
 	}
+	
+	
+	public ArrayList<PartOrder> getAllPartOrders(int orderID){
+		ResultSet results;
+		ResultSet resultsProduct;
+		String query="SELECT * FROM PartOrder WHERE Order_ID = orderID;";
+		ArrayList<PartOrder> allPartOrders = new ArrayList<PartOrder>();
+		
+		try{ // read the partorder from the database
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setQueryTimeout(5);
+			results = pstmt.executeQuery(query);
+			while( results.next() ){
+				
+				String productQuery="SELECT Name FROM Product WHERE ID = "+ results.getInt("Product_ID")+";";
+				PreparedStatement pstmt2 = con.prepareStatement(productQuery);
+				pstmt2.setQueryTimeout(5);
+				resultsProduct = pstmt2.executeQuery(productQuery);
+				if (resultsProduct.next()){
+					PartOrder po = new PartOrder(results.getInt("Amount"),resultsProduct.getString("Name"),results.getFloat("ProductPrice"),results.getInt("Order_ID"),results.getInt("Product_ID"));
+					allPartOrders.add(po);
+				}
+				pstmt2.close();
+				//association is to be build	   
+			}
+			pstmt.close();
+			
+		}
+		catch(Exception e){
+			System.out.println("Query exception: "+e);
+		}
+
+		return allPartOrders;
+	}
+	
 
 	//method to build the query
 	private String buildQuery(String wClause)
@@ -169,6 +224,23 @@ public class OrderDB {
 		System.out.println("error in building the order object");
 	}
 	return o;
+	}
+
+	public void setStatus(Order o) {
+		Order tempO = o;
+		String query = "UPDATE OrderTable SET DeliveryStatus = ?";
+	try{ // update product
+		PreparedStatement pstmt = con.prepareStatement(query);
+		pstmt.setString(1, tempO.getDeliveryStatus());
+
+		pstmt.setQueryTimeout(5);
+		pstmt.executeUpdate(query);
+
+		pstmt.close();
+	}
+	catch(Exception ex){
+		System.out.println("Update exception in order db: "+ex);
+	}
 	}
 
 

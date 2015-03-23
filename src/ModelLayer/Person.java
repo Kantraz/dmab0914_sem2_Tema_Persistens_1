@@ -24,7 +24,7 @@ public class Person {
 		this.setCountry(country);
 		this.setIsActive(isActive);
 	}
-	
+
 	public String getName() {
 		return name;
 	}
