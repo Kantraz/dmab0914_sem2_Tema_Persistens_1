@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
 import ControlLayer.PersonController;
+import ModelLayer.Person;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -111,11 +112,25 @@ private JTextField txtCountry;
 		add(button);
 		
 		JButton button_1 = new JButton("Opdater");
-		button_1.setEnabled(false);
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				updateCustomer();
+			}
+		});
 		button_1.setBounds(119, 298, 97, 25);
 		add(button_1);
 		
 		JButton button_2 = new JButton("Slet");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					deleteCustomer();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		button_2.setBounds(335, 298, 97, 25);
 		add(button_2);
 		
@@ -124,6 +139,11 @@ private JTextField txtCountry;
 		add(button_3);
 		
 		JButton button_4 = new JButton("S\u00F8g");
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				searchCustomer();
+			}
+		});
 		button_4.setBounds(228, 298, 97, 25);
 		add(button_4);
 		
@@ -169,6 +189,35 @@ private JTextField txtCountry;
 		lblLand.setBounds(10, 183, 56, 16);
 		add(lblLand);
 
+	}
+
+	protected void deleteCustomer() throws Exception {
+		int phone = Integer.parseInt((String)(txtPhone.getText()));
+		pCTRL.deleteCustomer(phone);
+	}
+
+	protected void searchCustomer() {
+		int phone = Integer.parseInt((String)(txtPhone.getText()));
+		Person p = pCTRL.findPerson(phone);
+		txtName.setText(p.getName());
+		txtAddress.setText(p.getAddress());
+		txtCity.setText(p.getCity());
+		txtPhone.setText((String) String.valueOf(p.getPhoneNo()));
+		txtEmail.setText(p.getEmail());
+		txtZip.setText(p.getZipCode());
+		txtCountry.setText(p.getCountry());
+	}
+
+	protected void updateCustomer() {
+		String name = txtName.getText();
+		String address = txtAddress.getText();
+		int phone = Integer.parseInt((String)(txtPhone.getText()));
+		String email = txtEmail.getText();
+		String city = txtCity.getText();
+		String zipCode = txtZip.getText();
+		String country = txtCountry.getText();
+		pCTRL.updatePerson(name, address, phone, email, city, zipCode, country, 1, phone);
+	
 	}
 
 	protected void createPerson() throws NumberFormatException, Exception {

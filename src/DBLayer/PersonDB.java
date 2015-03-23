@@ -54,6 +54,7 @@ public class PersonDB {
 
 	public Person findPerson(int phoneNo) {
 		String wClause = "  phoneNo = '" +  "?'";
+		String wClause = "  phoneNo = ?";
 		return singleWhere(wClause,phoneNo);
 	}
 
@@ -87,6 +88,7 @@ public class PersonDB {
 	private String buildQuery(String wClause)
 	{
 		String query="SELECT ID, Name, Adress, PhoneNo, Email, ZipCode, Country, IsActive FROM Person";
+		String query="SELECT ID, Name, Address, PhoneNo, Email, ZipCode, Country, IsActive FROM Person";
 
 		if (wClause.length()>0)
 			query=query+" WHERE "+ wClause;
@@ -99,6 +101,7 @@ public class PersonDB {
 	try{ // the columns from the table product  are used
 		pers.setName(results.getString("Name"));
 		pers.setAddress(results.getString("Adress"));
+		pers.setAddress(results.getString("Address"));
 		pers.setPhoneNo(results.getInt("PhoneNo"));
 		pers.setEmail(results.getString("Email"));
 		pers.setZipCode(results.getString("ZipCode"));
@@ -120,6 +123,7 @@ public class PersonDB {
 	public void updatePerson(Person pers, int oldPhone) {
 		Person newPers  = pers;
 		String query = "UPDATE Person SET Name = ?,Adress = ?, PhoneNo = ?, Email = ?,ZipCode = ?, Country = ?, IsActive = ?"
+		String query = "UPDATE Person SET Name = ?,Address = ?, PhoneNo = ?, Email = ?,ZipCode = ?, Country = ?, IsActive = ?"
 				+ " WHERE PhoneNo = ?";
 		System.out.println("Update query:" + query);
 		try{ // update product
