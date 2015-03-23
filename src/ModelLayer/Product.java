@@ -147,9 +147,6 @@ public class Product {
 		this.supplierID = supplierID;
 	}
 
-	/**
-	 * @return the isActive
-	 */
 	public int isActive() {
 		return isActive;
 	}

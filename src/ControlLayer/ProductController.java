@@ -18,7 +18,6 @@ public class ProductController {
 	 * 
 	 */
 	public ProductController() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public Product findProduct(int productID){
