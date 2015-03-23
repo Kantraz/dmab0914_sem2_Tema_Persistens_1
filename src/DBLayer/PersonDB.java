@@ -91,6 +91,7 @@ public class PersonDB {
 		pers.setZipCode(results.getString("ZipCode"));
 		pers.setCountry(results.getString("Country"));
 		pers.setIsActive(results.getInt("IsActive"));
+		pers.setId(results.getInt("ID"));
 	}
 	catch(Exception e)
 	{

@@ -9,6 +9,7 @@ public class Person {
 	private String zipCode;
 	private String country;
 	private int isActive;
+	private int id;
 	
 	public Person(){
 		
@@ -104,6 +105,20 @@ public class Person {
 	 */
 	public void setIsActive(int isActive) {
 		this.isActive = isActive;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

@@ -14,7 +14,7 @@ public class GetMax {
     //getMax is for the primary key in the table			
     public static int getMaxId(String query){
 	ResultSet results;
-	int id = -1;
+	int id = 0;
 	try{ 
 	   Statement stmt = DbConnection.getInstance().getDBcon().createStatement();
 	   results = stmt.executeQuery(query);

@@ -32,7 +32,7 @@ public class OrderDB {
 
 	public void addOrder(Order newOrder) throws Exception
 	{  	  
-		String query="INSERT INTO Order(ID, Date,DeliveryStatus, DeliveryDate, Price, Person_ID)  "
+		String query="INSERT INTO OrderTable(ID, Date,DeliveryStatus, DeliveryDate, Price, Person_ID)  "
 				+ "VALUES(?,?,?,?,?,?)";
 
 		try{ // insert new order
@@ -48,8 +48,8 @@ public class OrderDB {
 			pstmt.close();
 		}//end try
 		catch(SQLException ex){
-			System.out.println("Ordre ikke oprettet");
-			throw new Exception ("Order is not inserted correct");
+			System.out.println(ex.getMessage());
+			
 		}
 	}
 
@@ -69,8 +69,9 @@ public class OrderDB {
 			pstmt.close();
 		}//end try
 		catch(SQLException ex){
-			System.out.println("Ordrelinie ikke oprettet");
-			throw new Exception ("PartOrder is not inserted correct");
+			System.out.println("Part");
+			System.out.println(ex.getMessage());
+			
 		}
 	}
 

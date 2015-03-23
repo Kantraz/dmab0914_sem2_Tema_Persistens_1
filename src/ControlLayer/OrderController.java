@@ -10,14 +10,16 @@ import DBLayer.GetMax;
 import DBLayer.OrderDB;
 import ModelLayer.Order;
 import ModelLayer.PartOrder;
+import ModelLayer.Person;
 import ModelLayer.Product;
 
 /**
- * @author Søren
+ * @author Sï¿½ren
  *
  */
 public class OrderController {
 	private ProductController proCon;
+	private PersonController persCon;
 	private OrderDB oDB;
 	private Order tempOrder;
 
@@ -25,12 +27,14 @@ public class OrderController {
 	 * 
 	 */
 	public OrderController() {
+		proCon = new ProductController();
+		oDB = new OrderDB();
 		createNewOrder();
 	}
 	
 	private Order createNewOrder() {
 		tempOrder = new Order();
-		int nextID = GetMax.getMaxId("Select max(ID) from Order");
+		int nextID = GetMax.getMaxId("Select max(ID) from OrderTable");
 		tempOrder.setOrderID(nextID);
 		return tempOrder;
 	}
@@ -71,19 +75,24 @@ public class OrderController {
 	{    
 		Product product = proCon.findProduct(productID);
 		tempOrder.addPartorder(amount,product.getName(),product.getSalesPrice(),tempOrder.getOrderID(),productID);
-		PartOrder po = tempOrder.getPartOrders().get(tempOrder.getPartOrders().size() - 1);
-		oDB.addPartOrder(po);
+		PartOrder po = tempOrder.getPartOrders().get(tempOrder.getPartOrders().size()-1);
+		
 	}
 	public void removePartOrder(int index) throws Exception
 	{    
 		tempOrder.removePartorder(index);
 	}
-	public void endOrder(int personID){
+	public void endOrder(int phoneNo){
 		tempOrder.setActive(true);
-		tempOrder.setCustomerID(personID);
+		persCon = new PersonController();
+		Person p = persCon.findPerson(phoneNo);
+		tempOrder.setCustomerID(p.getId());
 		tempOrder.setCreationDate(new Date());
 		try{
 		oDB.addOrder(tempOrder);
+		for(PartOrder po : tempOrder.getPartOrders()){
+			oDB.addPartOrder(po);
+		}
 		createNewOrder();
 		}
 		catch(Exception e){

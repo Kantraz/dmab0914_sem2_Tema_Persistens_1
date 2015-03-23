@@ -48,6 +48,11 @@ public class NewOrderPanel extends JPanel {
 		add(textField_5);
 		
 		JButton button = new JButton("Afslut ordre");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				endOrder();
+			}
+		});
 		button.setBounds(245, 231, 113, 25);
 		add(button);
 		
@@ -126,6 +131,11 @@ public class NewOrderPanel extends JPanel {
 		label_4.setBounds(10, 11, 56, 16);
 		panel_1.add(label_4);
 		
+		
+	}
+
+	protected void endOrder() {
+		oCTRL.endOrder(Integer.parseInt(txtPhone.getText()));
 		
 	}
 
