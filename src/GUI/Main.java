@@ -41,11 +41,15 @@ public class Main {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 636, 355);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		PanelItems panelItems = new PanelItems();
-		frame.getContentPane().add(panelItems, BorderLayout.SOUTH);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frame.getContentPane().add(tabbedPane, BorderLayout.NORTH);
+		PanelItems panelItems = new PanelItems();
+		CustomerPanel customerPanel = new CustomerPanel();
+		NewOrderPanel orderPanel = new NewOrderPanel();
+		tabbedPane.addTab("Produkter", null, panelItems, null);
+		tabbedPane.addTab("Personer", null, customerPanel, null);
+		tabbedPane.addTab("Ny ordre", null, orderPanel, null);
 		frame.setVisible(true);
 		frame.pack();
 

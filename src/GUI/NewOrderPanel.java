@@ -10,6 +10,11 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JCheckBox;
 
+import ControlLayer.OrderController;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 
 public class NewOrderPanel extends JPanel {
 	private JTextField textField;
@@ -18,15 +23,16 @@ public class NewOrderPanel extends JPanel {
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
+	private JTextField txtID;
+	private JTextField txtAmount;
+	private JTextField txtPhone;
+	private OrderController oCTRL;
 
 	/**
 	 * Create the panel.
 	 */
 	public NewOrderPanel() {
+		oCTRL = new OrderController();
 		setPreferredSize(new Dimension(680, 340));
 		setLayout(null);
 		
@@ -68,18 +74,28 @@ public class NewOrderPanel extends JPanel {
 		panel.add(button_2);
 		
 		JButton button_3 = new JButton("Tilføj vare");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					addItem();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		button_3.setBounds(10, 67, 97, 25);
 		panel.add(button_3);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(62, 11, 152, 16);
-		panel.add(textField_6);
+		txtID = new JTextField();
+		txtID.setColumns(10);
+		txtID.setBounds(62, 11, 152, 16);
+		panel.add(txtID);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(62, 40, 152, 16);
-		panel.add(textField_7);
+		txtAmount = new JTextField();
+		txtAmount.setColumns(10);
+		txtAmount.setBounds(62, 40, 152, 16);
+		panel.add(txtAmount);
 		
 		JLabel label_2 = new JLabel("Antal:");
 		label_2.setBounds(10, 40, 56, 16);
@@ -95,30 +111,26 @@ public class NewOrderPanel extends JPanel {
 		panel_1.setBounds(10, 11, 225, 101);
 		add(panel_1);
 		
-		textField_8 = new JTextField();
-		textField_8.setText("Sælger ID");
-		textField_8.setColumns(10);
-		textField_8.setBounds(62, 64, 152, 16);
-		panel_1.add(textField_8);
-		
 		JCheckBox checkBox = new JCheckBox("Erhvervskunde");
+		checkBox.setEnabled(false);
 		checkBox.setBounds(62, 34, 123, 23);
 		panel_1.add(checkBox);
 		
-		textField_9 = new JTextField();
-		textField_9.setText("Telefonnummer/CVR");
-		textField_9.setColumns(10);
-		textField_9.setBounds(62, 11, 152, 16);
-		panel_1.add(textField_9);
+		txtPhone = new JTextField();
+		txtPhone.setText("Telefonnummer/CVR");
+		txtPhone.setColumns(10);
+		txtPhone.setBounds(62, 11, 152, 16);
+		panel_1.add(txtPhone);
 		
 		JLabel label_4 = new JLabel("Kunde:");
 		label_4.setBounds(10, 11, 56, 16);
 		panel_1.add(label_4);
 		
-		JLabel label_5 = new JLabel("Sælger:");
-		label_5.setBounds(10, 64, 56, 16);
-		panel_1.add(label_5);
 		
+	}
+
+	protected void addItem() throws NumberFormatException, Exception {
+		oCTRL.insertNewPartOrder(Integer.parseInt(txtID.getText()), Integer.parseInt(txtAmount.getText()));
 		
 	}
 }
