@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/common lang"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/sqljdbc"/>
+	<classpathentry kind="lib" path="Lib/commons-lang3-3.3.2.jar"/>
+	<classpathentry kind="lib" path="Lib/sqljdbc4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
