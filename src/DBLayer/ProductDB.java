@@ -162,7 +162,7 @@ public class ProductDB {
 			prod.setMinStock(results.getInt("MinStock"));
 			prod.setType(results.getInt("Type"));
 			prod.setSupplierID(results.getInt("Supplier_ID"));
-			prod.setActive(results.getBoolean("IsActive"));
+			prod.setActive(results.getInt("IsActive"));
 		}
 		catch(Exception e)
 		{

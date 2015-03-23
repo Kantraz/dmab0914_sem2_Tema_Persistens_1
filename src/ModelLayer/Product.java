@@ -150,7 +150,7 @@ public class Product {
 	/**
 	 * @return the isActive
 	 */
-	public boolean isActive() {
+	public int isActive() {
 		return isActive;
 	}
 
