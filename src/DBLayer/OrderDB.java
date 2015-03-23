@@ -52,7 +52,7 @@ public class OrderDB {
 			throw new Exception ("Order is not inserted correct");
 		}
 	}
-	
+
 	public void addPartOrder(PartOrder newPartOrder) throws Exception
 	{  	  
 		String query="INSERT INTO PartOrder(Order_ID, Product_ID,Amount, ProductPrice)  "
@@ -79,6 +79,7 @@ public class OrderDB {
 		return singleWhere(wClause,orderID);
 	}
 
+<<<<<<< HEAD
 	public int updateProduct(Product prod, int oldID) {
 		Product newProd  = prod;
 		int rc=-1;
@@ -109,6 +110,8 @@ public class OrderDB {
 		}
 		return(rc);
 	}
+=======
+>>>>>>> origin/master
 
 	//Singelwhere is used when we only select one product 	
 	private Order singleWhere(String wClause, int orderID)
@@ -159,20 +162,20 @@ public class OrderDB {
 
 		return allOrders;
 	}
-	
-	
+
+
 	public ArrayList<PartOrder> getAllPartOrders(int orderID){
 		ResultSet results;
 		ResultSet resultsProduct;
 		String query="SELECT * FROM PartOrder WHERE Order_ID = orderID;";
 		ArrayList<PartOrder> allPartOrders = new ArrayList<PartOrder>();
-		
+
 		try{ // read the partorder from the database
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setQueryTimeout(5);
 			results = pstmt.executeQuery(query);
 			while( results.next() ){
-				
+
 				String productQuery="SELECT Name FROM Product WHERE ID = "+ results.getInt("Product_ID")+";";
 				PreparedStatement pstmt2 = con.prepareStatement(productQuery);
 				pstmt2.setQueryTimeout(5);
@@ -185,7 +188,7 @@ public class OrderDB {
 				//association is to be build	   
 			}
 			pstmt.close();
-			
+
 		}
 		catch(Exception e){
 			System.out.println("Query exception: "+e);
@@ -193,7 +196,7 @@ public class OrderDB {
 
 		return allPartOrders;
 	}
-	
+
 
 	//method to build the query
 	private String buildQuery(String wClause)
@@ -229,18 +232,23 @@ public class OrderDB {
 	public void setStatus(Order o) {
 		Order tempO = o;
 		String query = "UPDATE OrderTable SET DeliveryStatus = ?";
-	try{ // update product
-		PreparedStatement pstmt = con.prepareStatement(query);
-		pstmt.setString(1, tempO.getDeliveryStatus());
+		try{ // update product
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setString(1, tempO.getDeliveryStatus());
 
+<<<<<<< HEAD
 		pstmt.setQueryTimeout(5);
 		pstmt.executeUpdate();
+=======
+			pstmt.setQueryTimeout(5);
+			pstmt.executeUpdate(query);
+>>>>>>> origin/master
 
-		pstmt.close();
-	}
-	catch(Exception ex){
-		System.out.println("Update exception in order db: "+ex);
-	}
+			pstmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Update exception in order db: "+ex);
+		}
 	}
 
 

@@ -10,9 +10,6 @@ import DBLayer.*;
  *
  */
 public class PersonController {
-	private Person p;
-	private PersonDB pDB;
-	private PersonIFDB pIFDB;
 	/**
 	 * 
 	 */

@@ -77,7 +77,7 @@ public class ProductDB {
 			pstmt.setInt(9, newProd.getSupplierID());
 			pstmt.setBoolean(10, newProd.isActive());
 			pstmt.setInt(11, oldID);
-
+<<<<<<< HEAD
 			pstmt.setQueryTimeout(5);
 			pstmt.executeUpdate();
 
