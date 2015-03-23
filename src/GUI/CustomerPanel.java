@@ -8,7 +8,7 @@ import javax.swing.JScrollPane;
 
 
 public class CustomerPanel extends JPanel {
-	private JTextField textField;
+	private JTextField txtName;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -27,10 +27,10 @@ public class CustomerPanel extends JPanel {
 		label.setBounds(10, 11, 56, 16);
 		add(label);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(133, 11, 226, 16);
-		add(textField);
+		txtName = new JTextField();
+		txtName.setColumns(10);
+		txtName.setBounds(133, 11, 226, 16);
+		add(txtName);
 		
 		JLabel label_1 = new JLabel("Adresse:");
 		label_1.setBounds(10, 40, 56, 16);
@@ -69,6 +69,7 @@ public class CustomerPanel extends JPanel {
 		add(textField_4);
 		
 		JCheckBox checkBox = new JCheckBox("Erhvervskunde");
+		checkBox.setEnabled(false);
 		checkBox.setBounds(10, 217, 113, 25);
 		add(checkBox);
 		
@@ -123,6 +124,7 @@ public class CustomerPanel extends JPanel {
 		add(scrollPane);
 		
 		JCheckBox checkBox_1 = new JCheckBox("Forening");
+		checkBox_1.setEnabled(false);
 		checkBox_1.setBounds(133, 218, 113, 25);
 		add(checkBox_1);
 		
