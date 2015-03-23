@@ -79,11 +79,7 @@ public class OrderDB {
 		return singleWhere(wClause,orderID);
 	}
 
-<<<<<<< HEAD
-	public void updateProduct(Product prod, int oldID) {
-=======
 	public void updateProduct(Product prod, int oldID){
->>>>>>> origin/master
 		Product newProd  = prod;
 		String query = "UPDATE Product SET ID = ?, Name = ?,PurchasePrice = ?, SalesPrice = ?, RentPrice = ?,CountryOfOrigin = ?, MinStock = ?, Type = ?, Supplier_ID = ?, IsActive = ?"
 				+ " WHERE ID = ?'";
@@ -232,16 +228,12 @@ public class OrderDB {
 		try{ // update product
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setString(1, tempO.getDeliveryStatus());
-<<<<<<< HEAD
-		pstmt.setQueryTimeout(5);
-		pstmt.executeUpdate();
-
-=======
+			pstmt.setQueryTimeout(5);
+			pstmt.executeUpdate();
 			pstmt.setQueryTimeout(5);
 			pstmt.executeUpdate();
 			pstmt.setQueryTimeout(5);
 			pstmt.executeUpdate(query);
->>>>>>> origin/master
 			pstmt.close();
 		}
 		catch(Exception ex){
