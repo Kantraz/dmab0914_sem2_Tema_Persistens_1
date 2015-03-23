@@ -8,43 +8,50 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.commons.lang3.time.DateUtils;
+
 /**
  * @author Benjamin Ørskov, Lasse Lambertsen, Ole Kirk & Søren Søgaard
  *
  */
 public class Order {
 	private ArrayList<PartOrder> partOrders = new ArrayList<PartOrder>();
-	private Person customer;
-	private Date date;
+	private int customerID;
+	private Date creationDate;
 	private int orderID;
+	private Date deliveryDate;
+	private String DeliveryStatus;
 	private boolean isActive;
+	private float orderPrice;
 public Order(){
-	date = new Date();
+	creationDate = new Date();
 
+	DeliveryStatus = "Oprettet";
 }
 /**
  * @return the customer
  */
-public Person getCustomer() {
-	return customer;
+public int getCustomerID() {
+	return customerID;
 }
 /**
  * @param customer the customer to set
  */
-public void setCustomer(Person customer) {
-	this.customer = customer;
+public void setCustomerID(int customerID) {
+	this.customerID = customerID;
 }
 /**
  * @return the date
  */
-public Date getDate() {
-	return date;
+public Date getCreationDate() {
+	return creationDate;
 }
 /**
  * @param date the date to set
  */
-public void setDate(Date date) {
-	this.date = date;
+public void setCreationDate(Date date) {
+	creationDate = date;
+	deliveryDate = DateUtils.addDays(creationDate, 7);
 }
 /**
  * @return the orderID
@@ -66,6 +73,7 @@ public ArrayList<PartOrder> getPartOrders() {
 }
 public void addPartorder(int amount, String name, float price, int orderID){
 	partOrders.add(new PartOrder(amount,name,price,orderID));
+	orderPrice += amount*price;
 }
 public void removePartorder(int i){
 	partOrders.remove(i);
@@ -81,5 +89,38 @@ public boolean isActive() {
  */
 public void setActive(boolean isActive) {
 	this.isActive = isActive;
+}
+/**
+ * @return the deliveryDate
+ */
+public Date getDeliveryDate() {
+	return deliveryDate;
+}
+/**
+ * @param deliveryDate the deliveryDate to set
+ */
+public void setDeliveryDate(Date date) {
+	deliveryDate = date;
+}
+/**
+ * @return the deliveryStatus
+ */
+public String getDeliveryStatus() {
+	return DeliveryStatus;
+}
+/**
+ * @param deliveryStatus the deliveryStatus to set
+ */
+public void setDeliveryStatus(String deliveryStatus) {
+	DeliveryStatus = deliveryStatus;
+}
+/**
+ * @return the orderPrice
+ */
+public float getOrderPrice() {
+	return orderPrice;
+}
+public void setOrderPrice(float price) {
+	orderPrice = price;
 }
 }

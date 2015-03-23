@@ -8,6 +8,7 @@ import java.util.Date;
 
 import DBLayer.DbConnection;
 import DBLayer.GetMax;
+import DBLayer.OrderDB;
 import DBLayer.ProductDB;
 import ModelLayer.Order;
 import ModelLayer.PartOrder;
@@ -23,7 +24,7 @@ public class OrderController {
 	private PersonController perCon;
 	private ProductController proCon;
 	private Order o;
-	private oDB OrderDB;
+	private OrderDB oDB;
 	private PartOrder pO;
 	private Order tempOrder;
 
@@ -43,6 +44,7 @@ public class OrderController {
 
 	public Order findOrder(int orderID){
 		oDB = new OrderDB();
+		
 		return oDB.findOrder(orderID);
 	}
 	public ArrayList<Order> findAllOrders()
@@ -62,13 +64,12 @@ public class OrderController {
 	{    
 		tempOrder.removePartorder(index);
 	}
-	public void endOrder(String phone){
+	public void endOrder(int personID){
 		tempOrder.setActive(true);
-		Person tempP = perCon.findPerson(phone);
-		tempOrder.setCustomer(tempP);
-		tempOrder.setDate(new Date());
+		tempOrder.setCustomerID(personID);
+		tempOrder.setCreationDate(new Date());
 		try{
-		oDB.addOrder();
+		oDB.addOrder(tempOrder);
 		createNewOrder();
 		}
 		catch(Exception e){

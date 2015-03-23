@@ -1,0 +1,175 @@
+/**
+ * 
+ */
+package DBLayer;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+
+import ModelLayer.Order;
+import ModelLayer.Product;
+
+/**
+ * @author Søren
+ *
+ */
+
+
+
+public class OrderDB {
+	private  Connection con;
+
+	/** Creates a new instance of ProductDB */
+	public OrderDB() {
+		con = DbConnection.getInstance().getDBcon();
+	}
+
+	public int addOrder(Order newOrder) throws Exception
+	{  	  
+		int rc = -1;
+		String query="INSERT INTO Order(ID, Date,DeliveryStatus, DeliveryDate, Price, Person_ID)  "
+				+ "VALUES(?,?,?,?,?,?)";
+
+		try{ // insert new order
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, newOrder.getOrderID());
+			pstmt.setDate(2, new java.sql.Date(newOrder.getCreationDate().getDate()));
+			pstmt.setString(3, newOrder.getDeliveryStatus());
+			pstmt.setDate(4, new java.sql.Date(newOrder.getDeliveryDate().getDate()));
+			pstmt.setFloat(5, newOrder.getOrderPrice());
+			pstmt.setInt(6, newOrder.getCustomerID());
+			pstmt.setQueryTimeout(5);
+			rc = pstmt.executeUpdate(query);
+			pstmt.close();
+		}//end try
+		catch(SQLException ex){
+			System.out.println("Ordre ikke oprettet");
+			throw new Exception ("Order is not inserted correct");
+		}
+		return(rc);
+	}
+
+	public Order findOrder(int orderID) {
+		String wClause = "  ID = '" +  "?'";
+		return singleWhere(wClause,orderID);
+	}
+
+	public int updateProduct(Product prod, int oldID) {
+		Product newProd  = prod;
+		int rc=-1;
+		String query = "UPDATE Product SET ID = ?, Name = ?,PurchasePrice = ?, SalesPrice = ?, RentPrice = ?,CountryOfOrigin = ?, MinStock = ?, Type = ?, Supplier_ID = ?, IsActive = ?"
+				+ " WHERE ID = ?'";
+		System.out.println("Update query:" + query);
+		try{ // update product
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, newProd.getId());
+			pstmt.setString(2, newProd.getName());
+			pstmt.setFloat(3, newProd.getPurchasePrice());
+			pstmt.setFloat(4, newProd.getSalesPrice());
+			pstmt.setFloat(5, newProd.getRentPrice());
+			pstmt.setString(6, newProd.getCountryOfOrigin());
+			pstmt.setInt(7, newProd.getMinStock());
+			pstmt.setInt(8, newProd.getType());
+			pstmt.setInt(9, newProd.getSupplierID());
+			pstmt.setBoolean(10, newProd.isActive());
+			pstmt.setInt(11, oldID);
+
+			pstmt.setQueryTimeout(5);
+			rc = pstmt.executeUpdate(query);
+
+			pstmt.close();
+		}
+		catch(Exception ex){
+			System.out.println("Update exception in product db: "+ex);
+		}
+		return(rc);
+	}
+
+	//Singelwhere is used when we only select one product 	
+	private Order singleWhere(String wClause, int orderID)
+	{
+		ResultSet results;
+		Order o = new Order();
+
+		String query =  buildQuery(wClause);
+		System.out.println(query);
+		try{ // read the order from the database
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, orderID);
+			pstmt.setQueryTimeout(5);
+			results = pstmt.executeQuery(query);
+			if( results.next() ){
+				o = buildOrder(results);
+				//association is to be build
+				pstmt.close();     
+			}
+			else{ //no order was found
+				o = null;
+			}
+		}//end try	
+		catch(Exception e){
+			System.out.println("Query exception: "+e);
+		}
+		return o;
+	}
+	public ArrayList<Order> getAllOrders(){
+		ResultSet results;
+		String query="SELECT * FROM OrderTable";
+		ArrayList<Order> allOrders = new ArrayList<Order>();
+		Order o = new Order();
+		try{ // read the product from the database
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setQueryTimeout(5);
+			results = pstmt.executeQuery(query);
+			while( results.next() ){
+				o = buildOrder(results);
+				allOrders.add(o);
+				//association is to be build	   
+			}
+			pstmt.close();
+		}
+		catch(Exception e){
+			System.out.println("Query exception: "+e);
+		}
+
+		return allProducts;
+	}
+
+	//method to build the query
+	private String buildQuery(String wClause)
+	{
+		String query="SELECT ID, Name,PurchasePrice, SalesPrice, RentPrice,CountryOfOrigin, MinStock, Type, Supplier_ID, IsActive FROM Product";
+
+		if (wClause.length()>0)
+			query=query+" WHERE "+ wClause;
+
+		return query;
+	}
+
+	//method to build an order object
+	private Order buildOrder(ResultSet results)
+	{   Order o = new Order();
+	try{ // the columns from the table order  are used
+		o.setOrderID(results.getInt("ID"));
+		Date createDate  = results.getTimestamp("Date");
+		o.setCreationDate(createDate);
+		o.setDeliveryStatus("DeliveryStatus");
+		Date deliveryDate  = results.getTimestamp("DeliveryDate");
+		o.setDeliveryDate(deliveryDate);
+		o.setOrderPrice(results.getFloat("Price"));
+		o.setCustomerID(results.getInt("Person_ID"));
+	}
+	catch(Exception e)
+	{
+		System.out.println("error in building the order object");
+	}
+	return o;
+	}
+
+
+}
