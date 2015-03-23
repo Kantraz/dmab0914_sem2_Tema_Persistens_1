@@ -16,13 +16,12 @@ public class PersonDB {
 		con = DbConnection.getInstance().getDBcon();
 	}
 
-	public int insertPerson(Person newPers) throws Exception
+	public void insertPerson(Person newPers) throws Exception
 	{  	  
 		int nextID = GetMax.getMaxId("Select max(ID) from Person");
 
-		int rc = -1;
-		String query="INSERT INTO Person(ID, Name, Address, PhoneNo, Email, ZipCode, Country, IsActive)  "
-				+ "VALUES(?,?,?,?,?,?,?,?,?)";
+		String query="INSERT INTO Person (ID, Name, Address, PhoneNo, Email, ZipCode, Country, IsActive) VALUES"
+				+ "(?,?,?,?,?,?,?,?)";
 
 		try{ // insert new person
 			PreparedStatement pstmt = con.prepareStatement(query);
@@ -35,14 +34,12 @@ public class PersonDB {
 			pstmt.setString(7, newPers.getCountry());
 			pstmt.setInt(8, newPers.getIsActive());
 			pstmt.setQueryTimeout(5);
-			rc = pstmt.executeUpdate(query);
+			pstmt.executeUpdate();
 			pstmt.close();
 		}//end try
 		catch(SQLException ex){
-			System.out.println("Produkt ikke oprettet");
-			throw new Exception ("Product is not inserted correct");
+			System.out.println(ex.getMessage());
 		}
-		return(rc);
 	}
 
 	public Person findPerson(int phoneNo) {
@@ -61,7 +58,7 @@ public class PersonDB {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, phoneNo);
 			pstmt.setQueryTimeout(5);
-			results = pstmt.executeQuery(query);
+			results = pstmt.executeQuery();
 			if( results.next() ){
 				pers = build(results);
 				//assocaition is to be build
@@ -127,7 +124,7 @@ public class PersonDB {
 			pstmt.setInt(8, oldPhone);
 
 			pstmt.setQueryTimeout(5);
-			pstmt.executeUpdate(query);
+			pstmt.executeUpdate();
 
 			pstmt.close();
 		}

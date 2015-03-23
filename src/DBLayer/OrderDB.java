@@ -16,7 +16,7 @@ import ModelLayer.PartOrder;
 import ModelLayer.Product;
 
 /**
- * @author Søren
+ * @author Sï¿½ren
  *
  */
 
@@ -44,7 +44,7 @@ public class OrderDB {
 			pstmt.setFloat(5, newOrder.getOrderPrice());
 			pstmt.setInt(6, newOrder.getCustomerID());
 			pstmt.setQueryTimeout(5);
-			pstmt.executeUpdate(query);
+			pstmt.executeUpdate();
 			pstmt.close();
 		}//end try
 		catch(SQLException ex){
@@ -65,7 +65,7 @@ public class OrderDB {
 			pstmt.setInt(3, newPartOrder.getAmount());
 			pstmt.setFloat(4, newPartOrder.getPrice());
 			pstmt.setQueryTimeout(5);
-			pstmt.executeUpdate(query);
+			pstmt.executeUpdate();
 			pstmt.close();
 		}//end try
 		catch(SQLException ex){
@@ -100,7 +100,7 @@ public class OrderDB {
 			pstmt.setInt(11, oldID);
 
 			pstmt.setQueryTimeout(5);
-			rc = pstmt.executeUpdate(query);
+			rc = pstmt.executeUpdate();
 
 			pstmt.close();
 		}
@@ -234,7 +234,7 @@ public class OrderDB {
 		pstmt.setString(1, tempO.getDeliveryStatus());
 
 		pstmt.setQueryTimeout(5);
-		pstmt.executeUpdate(query);
+		pstmt.executeUpdate();
 
 		pstmt.close();
 	}

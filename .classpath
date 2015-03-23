@@ -3,5 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="E:/Dropbox/Workspace/commons-lang3-3.3.2.jar"/>
+	<classpathentry kind="lib" path="E:/Dropbox/Skole/UCN - Datamatiker/2. Semester/Programmering/Session04/jarFiles/sqljdbc4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

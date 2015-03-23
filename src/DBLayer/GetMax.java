@@ -19,7 +19,7 @@ public class GetMax {
 	   Statement stmt = DbConnection.getInstance().getDBcon().createStatement();
 	   results = stmt.executeQuery(query);
 	   if( results.next() ){
-		 id = results.getInt(1);
+		 id = results.getInt(1)+1;
 	    }
 	    }//slut try	
 	catch(Exception e){

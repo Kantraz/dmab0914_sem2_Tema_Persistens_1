@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import ModelLayer.Product;
 
 /**
- * @author Søren
+ * @author Sï¿½ren
  *
  */
 
@@ -27,9 +27,8 @@ public class ProductDB {
 		con = DbConnection.getInstance().getDBcon();
 	}
 	
-	 public int insertProduct(Product newProd) throws Exception
+	 public void insertProduct(Product newProd) throws Exception
 	    {  	  
-	       int rc = -1;
 		   String query="INSERT INTO product(ID, Name,PurchasePrice, SalesPrice, RentPrice,CountryOfOrigin, MinStock, Type, Supplier_ID, IsActive)  "
 		   		+ "VALUES(?,?,?,?,?,?,?,?,?,?)";
 	                     
@@ -46,14 +45,13 @@ public class ProductDB {
 				pstmt.setInt(9, newProd.getSupplierID());
 				pstmt.setBoolean(10, newProd.isActive());
 	          pstmt.setQueryTimeout(5);
-	     	  rc = pstmt.executeUpdate(query);
+	     	  pstmt.executeUpdate();
 	     	 pstmt.close();
 	      }//end try
 	       catch(SQLException ex){
 	          System.out.println("Produkt ikke oprettet");
 	          throw new Exception ("Product is not inserted correct");
 	       }
-	       return(rc);
 	    }
 	
 	public Product findProduct(int productID) {
@@ -61,9 +59,8 @@ public class ProductDB {
 		return singleWhere(wClause,productID);
 	}
 
-	public int updateProduct(Product prod, int oldID) {
+	public void updateProduct(Product prod, int oldID) {
 		Product newProd  = prod;
-		int rc=-1;
 		String query = "UPDATE Product SET ID = ?, Name = ?,PurchasePrice = ?, SalesPrice = ?, RentPrice = ?,CountryOfOrigin = ?, MinStock = ?, Type = ?, Supplier_ID = ?, IsActive = ?"
 				+ " WHERE ID = ?'";
                 System.out.println("Update query:" + query);
@@ -82,14 +79,13 @@ public class ProductDB {
 			pstmt.setInt(11, oldID);
 
 			pstmt.setQueryTimeout(5);
-			rc = pstmt.executeUpdate(query);
+			pstmt.executeUpdate();
 
 			pstmt.close();
 		}
 	 	catch(Exception ex){
 	 	 	System.out.println("Update exception in product db: "+ex);
 	  	}
-		return(rc);
 	}
 
 	//Singelwhere is used when we only select one product 	

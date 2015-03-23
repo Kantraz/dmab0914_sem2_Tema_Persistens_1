@@ -17,7 +17,7 @@ public class DbConnection
   
     private DatabaseMetaData dma;
     private static Connection con;
-    // an instance of the class is generetated
+    // an instance of the class is generated
     private static DbConnection  instance = null;
 
     // the constructor is private to ensure that only one object of this class is created
